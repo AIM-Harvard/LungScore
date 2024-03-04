@@ -7,8 +7,27 @@ import yaml
 import argparse
 import matplotlib  
 
-from dataset import Train_set, Tune_set
+from torch.utils.tensorboard import SummaryWriter
+import torch
+import torch.nn.functional as F
+from torch import optim
+from torch.utils.data import DataLoader
+import torch.nn as nn
+from sklearn import metrics
+import numpy as np
+import time
+from torchmetrics import Accuracy
+import wandb 
+from sklearn.metrics import roc_auc_score
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
+from sklearn import metrics 
+import pandas as pd
+import monai
+import torchvision.models as models
 
+from dataset import Train_set, Tune_set
+from model import CNNModel
 
 ## ----------------------------------------
 
@@ -60,3 +79,26 @@ splits_of_classes = yaml_conf["wandb"]["splits of classes"]
 normalization_method = yaml_conf["wandb"]["normalization_method"]
 normalization_values = yaml_conf["wandb"]["normalization_values"]
 Aim = yaml_conf["wandb"]["Aim"]
+
+##########################################
+
+# setup training pipeline
+
+dataset = Train_set(training_data_folder_path, path_to_labels_training)
+data_loader = DataLoader(dataset, batch_size=training_batch_size, shuffle = True)
+
+val_dataset = Tune_set(tuning_data_folder_path, path_to_labels_tuning)
+val_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle = False)  
+ 
+# disturbed training 
+net = nn.DataParallel(CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max), device_ids = [0, 1, 2])
+
+opt = torch.optim.Adam(net.parameters(), lr=training_learningrate)             
+ 
+device = torch.device("cuda:0")
+x = torch.rand(1,1,90,280,400).to(device)
+print(net(x))
+#######################
+
+
+# run core
