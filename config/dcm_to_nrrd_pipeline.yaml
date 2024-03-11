@@ -1,0 +1,19 @@
+io:
+  DICOM_folder_path: '/mnt/data6/DeepPY/ai_lung_damage/data/dcm/'
+  NRRD_folder_path: '/mnt/data6/DeepPY/ai_lung_damage/data/nrrd/'
+
+preprocessing:
+  NUM_CORES: 32
+  OVERWRITE: False
+
+selection:
+  NUM_CORES: 32
+
+  MIN_SLICES: 60
+
+  MAX_THICKNESS: 3.27
+  MIN_THICKNESS: 0.62
+
+  CURATED_SPACING: [0.68, 0.68, 2.5]
+  CURATED_SIZE: [512, 512, 0]
+

@@ -28,6 +28,7 @@ import torchvision.models as models
 
 from dataset import Train_set, Tune_set
 from model import CNNModel
+from training import train, tune
 
 ## ----------------------------------------
 
@@ -88,17 +89,67 @@ dataset = Train_set(training_data_folder_path, path_to_labels_training)
 data_loader = DataLoader(dataset, batch_size=training_batch_size, shuffle = True)
 
 val_dataset = Tune_set(tuning_data_folder_path, path_to_labels_tuning)
-val_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle = False)  
+tune_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle = False)  
  
 # disturbed training 
-net = nn.DataParallel(CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max), device_ids = [0, 1, 2])
+model = nn.DataParallel(CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max), device_ids = [0, 1, 2])
 
-opt = torch.optim.Adam(net.parameters(), lr=training_learningrate)             
+optimizer = torch.optim.Adam(model.parameters(), lr=training_learningrate)             
  
-device = torch.device("cuda:0")
-x = torch.rand(1,1,90,280,400).to(device)
-print(net(x))
 #######################
 
 
 # run core
+def main():
+  Best_Tune_AUC = 0
+  # wandb.config = dict( 
+  #   epochs=num_epochs,
+  #   classes=splits_of_classes,
+  #   train_batch_size=training_batch_size,
+  #   tune_batch_size=tuning_batch_size, 
+  #   learning_rate=training_learningrate, 
+  #   dropout_conv = conv_dropout,   
+  #   dropout_fc = FC_dropout, 
+  #   conv_filters = [16,32,64,128,256],  
+  #   normalization = normalization_method,   
+  #   normalizevalues = normalization_values, 
+  #   Aim=Aim)    
+     
+  # wandb.init(project="AI_lung_health_q1nofindings_collate_fn_try", entity="ahmedadly98", config=wandb.config)    
+  # wandb.run.name = "AI_lung_health_1"  
+                
+  for epoch in range(1, num_epochs):
+
+      t = time.time() 
+      # wandb.watch(model, log='all')
+
+      train_loss, train_acc, train_labels, train_logits = train(model, data_loader, optimizer)
+      train_AUC =  roc_auc_score(train_labels, train_logits)   
+
+      tune_loss, tune_acc, tune_labels, tune_logits = tune(model, tune_data_loader, optimizer)
+      tune_AUC =  roc_auc_score(tune_labels, tune_logits)     
+
+
+      torch.save(model.state_dict(), model_weights_foldertosave_name+'weights_atepoch_'+str(epoch))
+    
+      if tune_AUC > Best_Tune_AUC:  
+        Best_Tune_AUC = tune_AUC
+        torch.save(model.state_dict(), model_weights_foldertosave_name+'best_model_AUC_onTune_atepoch'+str(epoch))
+
+      wandb.log({"Epoch": epoch, "Tune_AUC": tune_AUC})  
+      wandb.log({"Epoch": epoch, "Tune_AUC": train_AUC})  
+
+      wandb.log({"epoch": epoch, "train_loss": train_loss}) 
+      wandb.log({"epoch": epoch, "tune_loss": tune_loss}) 
+
+      wandb.log({"epoch": epoch, "train_acc": train_acc})  
+      wandb.log({"epoch": epoch, "tune_acc": tune_acc})  
+
+      print(f'Epoch: {epoch:03d}, Train_Loss: {train_loss:.4f}, Tune_Loss: {tune_loss:.4f}, time: {(time.time() - t):.4f}s')
+      print(f'Epoch: {epoch:03d}, Train_AUC: {train_AUC:.4f}, , Tune_AUC: {tune_AUC:.4f}')
+        
+
+if __name__ == "__main__":
+ 
+  print("\nTraining Starting.. ---\n")
+  main()

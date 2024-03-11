@@ -57,12 +57,12 @@ class CNNModel(nn.Module):
 
 ########################
 
-    def NormalizeData(self, data, normalization_value_min, normalization_value_max):
+    def NormalizeData(self, data):
          return (data - (self.normalization_value_min)) / ((self.normalization_value_max) - (self.normalization_value_min))    
 
     def forward(self, x):   
 
-        out = self.NormalizeData(x, self.normalization_value_min, self.normalization_value_max)  
+        out = self.NormalizeData(x)  
    
         out = self.conv_layer1(out)     
         out = self.conv_layer2(out) 
@@ -75,6 +75,5 @@ class CNNModel(nn.Module):
         out = self.drop(self.relu(self.fc1(out)))
         out = self.drop(self.relu(self.fc2(out)))
         out = self.fc3(out) 
-
 
         return out
