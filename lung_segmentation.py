@@ -5,7 +5,6 @@ import yaml
 import argparse
 
 import os
-os.environ['NUMEXPR_MAX_THREADS'] = '32'
 import SimpleITK as sitk
 import shutil
 from lungmask import mask
@@ -63,6 +62,8 @@ lung_segmentation_folder_path = yaml_conf["io"]["lung_segmentation_folder_path"]
 CUDA_VISIBLE_DEVICES =  yaml_conf["preprocessing"]["CUDA_VISIBLE_DEVICES"]
 os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
 
+NUMEXPR_MAX_THREADS =  yaml_conf["preprocessing"]["NUMEXPR_MAX_THREADS"]
+os.environ['NUMEXPR_MAX_THREADS'] = NUMEXPR_MAX_THREADS
 #############################
 
 def seg_lung(NRRD_folder_path):

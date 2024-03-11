@@ -4,3 +4,4 @@ io:
 
 preprocessing:
   CUDA_VISIBLE_DEVICES: "1"
+  NUMEXPR_MAX_THREADS: "32"
