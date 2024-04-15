@@ -1,0 +1,28 @@
+io:
+  path_to_data_folder_testing: '/mnt/data6/DeepPY/ai_lung_damage/data/test/'
+  csv_path_to_save_lung_health_predicted_scores: '/mnt/data6/DeepPY/src_main/CSVs/test'
+
+  # subdir under which the network weights should be saved
+  model_weights_saved_name: '/mnt/data6/DeepPY/src_main/model_weights/'
+ 
+  device_cuda: 'cuda:0'
+
+
+ # hyperparameters used during the training of AI Lung Health / Dont change during testing
+
+training:
+    
+  conv_dropout: 0.2
+
+  FC_dropout: 0.4
+    
+  batch_size: 16
+   
+  normalization_value_min: -1024
+
+  normalization_value_max: 1566
+
+testing:
+
+  batch_size: 1
+

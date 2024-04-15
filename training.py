@@ -59,7 +59,7 @@ def tune(model, data_loader):
     model.eval()
     with torch.no_grad():
          for batch in data_loader:
-             imgs, labels , scan = batch
+             imgs, labels = batch
              labels = labels.to(device)
               
              preds = model.to(device)(imgs.to(device).unsqueeze(1))  

@@ -1,5 +1,5 @@
 """
-  Deep-learning biomarker for Lung Health Lung segmentation
+  Deep-learning biomarker for Lung Health - Mhub utils
 """
 import yaml
 import argparse
@@ -19,6 +19,11 @@ import seaborn as sns
 import torch
 import monai
 
+import torch
+import os
+import torch.nn as nn
+import torch.nn.functional as F
+
 
 def NormalizeData(data):                
     return (data - (-1024)) / ((3071) - (-1024)) 
@@ -34,45 +39,15 @@ def crop_img(img,cropx,cropy):
     #startz = z//2-(cropz//2)    
     return img[:,starty:starty+cropy,startx:startx+cropx]
 
-base_conf_file_path = 'config/'
-conf_file_list = [f for f in os.listdir(base_conf_file_path) if f.split('.')[-1] == 'yaml']
+## Lung segmentation, preprocessing and extraction
 
-parser = argparse.ArgumentParser(description = 'DCM to NRRD pipeline')
-
-parser.add_argument('--conf',
-                    required = False,
-                    help = 'Specify the YAML configuration file containing the preprocessing details. ' \
-                            + 'Defaults to "lung_segmentation_pipeline.yaml"',
-                    choices = conf_file_list,
-                    default = "lung_segmentation_pipeline.yaml",
-                   )
-
-
-args = parser.parse_args()
-
-conf_file_path = os.path.join(base_conf_file_path, args.conf)
-
-with open(conf_file_path) as f:
-  yaml_conf = yaml.load(f, Loader = yaml.FullLoader)
-
-# input-output Paths
-NRRD_folder_path = yaml_conf["io"]["NRRD_folder_path"]
-lung_segmentation_folder_path = yaml_conf["io"]["lung_segmentation_folder_path"]
-
-CUDA_VISIBLE_DEVICES =  yaml_conf["preprocessing"]["CUDA_VISIBLE_DEVICES"]
-os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
-
-NUMEXPR_MAX_THREADS =  yaml_conf["preprocessing"]["NUMEXPR_MAX_THREADS"]
-os.environ['NUMEXPR_MAX_THREADS'] = NUMEXPR_MAX_THREADS
-#############################
-
-def seg_lung(NRRD_folder_path):
+def seg_lung(scan_folder):
    
-    for scan_id in os.listdir(NRRD_folder_path):
         begin_depth = []
         end_depth = []
+
         try:
-            scan_image = sitk.ReadImage(scan_id)         
+            scan_image = sitk.ReadImage(scan_folder)         
 
             scan = sitk.GetArrayFromImage(scan_image)   
         
@@ -158,7 +133,7 @@ def seg_lung(NRRD_folder_path):
                         largest_slice = slc_no
             
             if len(begin_depth) == 0:
-                print('No Lungs to segment: ', scan_id)
+                print('No Lungs to segment: ', scan_folder)
                 raise Exception('Exception')
                 return
             
@@ -180,18 +155,97 @@ def seg_lung(NRRD_folder_path):
             cropped = padding_depth(cropped.unsqueeze(0)).squeeze(0) 
             cropped = cropped[:90,:,:]   
            
-            cropped = unNormalizeData(cropped)
+            extracted_lung = unNormalizeData(cropped)
 
-            np.save(lung_segmentation_folder_path+scan_id, cropped)   
+            return extracted_lung
 
         except Exception as e:
-            print('no file/folder or error in loading: ', scan_id) 
+            print('no file/folder or error in loading: ', scan_folder) 
 
 
-if __name__ == "__main__":
+###################################
+
+# AI_LUNG_HEALTH Model
+class CNNModel(nn.Module): 
+    def __init__(self): 
+        super(CNNModel, self).__init__()  
  
-  print("\nLung Segmentation Started.. ---\n")
-  seg_lung(NRRD_folder_path)
+        self.conv_layer1 = self._conv_layer_set1(1, 16) 
+        self.conv_layer2 = self._conv_layer_set234(16, 32) 
+        self.conv_layer3 = self._conv_layer_set234(32, 64) 
+        self.conv_layer4 = self._conv_layer_set234(64, 128)
+        self.conv_layer5 = self._conv_layer_set5(128, 256) 
 
+        self.fc1 = nn.Linear(15360, 1024)    #15360 
+        self.fc2 = nn.Linear(1024, 128) 
+        self.fc3 = nn.Linear(128, 2)    
+ 
+        self.relu = nn.LeakyReLU()
+        self.drop = nn.Dropout(p=0.4)            
+          
+    def _conv_layer_set1(self, in_c, out_c):  
+        conv_layer = nn.Sequential(
+        nn.Conv3d(in_c, out_c, kernel_size=(7, 7, 7), padding=0),
+        nn.LeakyReLU(),
+        nn.MaxPool3d((2,2,2)), 
+        nn.BatchNorm3d(out_c),
+        nn.Dropout(p=0.2)
+        ) 
+        return conv_layer  
+ 
+    def _conv_layer_set234(self, in_c, out_c): 
+        conv_layer = nn.Sequential(
+        nn.Conv3d(in_c, out_c, kernel_size=(3, 3, 3), padding=0),  
+        nn.LeakyReLU(),
+        nn.MaxPool3d((2,2,2)),
+        nn.BatchNorm3d(out_c),
+        nn.Dropout(p=0.2) 
+        ) 
+        return conv_layer 
+
+    def _conv_layer_set5(self, in_c, out_c): 
+        conv_layer = nn.Sequential(
+        nn.Conv3d(in_c, out_c, kernel_size=(3, 3, 3), padding=0),  
+        nn.LeakyReLU(),
+        nn.MaxPool3d((2,2,2), padding=(1,0,0)),
+        nn.BatchNorm3d(out_c),
+        nn.Dropout(p=0.2) 
+        ) 
+        return conv_layer 
+
+
+    def NormalizeData(self, data):
+         return (data - (-1024)) / ((1566) - (-1024))     # original lung health normalization
+
+    def forward(self, x):   
+
+        out = self.NormalizeData(x)  
+   
+        out = self.conv_layer1(out)     
+        out = self.conv_layer2(out) 
+        out = self.conv_layer3(out) 
+        out = self.conv_layer4(out)
+        out = self.conv_layer5(out)  
+       
+        out = out.view(out.size(0), -1)
+
+        out = self.drop(self.relu(self.fc1(out)))
+        out = self.drop(self.relu(self.fc2(out)))
+        out = self.fc3(out) 
+
+        return out
+    
+
+##############################################
+
+# Predicting AI_lung_health_score
+def AI_lung_health(extracted_lung, model, device = torch.device("cuda") ):
+
+    model.eval()
+    with torch.no_grad():
+        pred = model.to(device)(extracted_lung.to(device).unsqueeze(0).unsqueeze(0))      
+        ai_lung_health_score = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 1] 
+
+    return ai_lung_health_score 
 
 

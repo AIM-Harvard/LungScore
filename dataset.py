@@ -59,4 +59,23 @@ class Tune_set(Dataset):
 
         return len(os.listdir(os.chdir(self.image_path)))
 
+ 
+class Test_set(Dataset):
 
+    def __init__(self, image_path):
+        
+        self.image_path = image_path   
+
+    def __getitem__(self, i):
+
+        scan = scan = os.listdir(self.image_path)[i]
+ 
+        img = np.load(os.listdir(os.chdir(self.image_path))[i])
+       
+        img = torch.tensor(img, dtype = torch.float32)
+                 
+        return img, scan
+
+    def __len__(self):
+
+        return len(os.listdir(os.chdir(self.image_path)))
