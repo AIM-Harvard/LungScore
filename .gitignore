@@ -7,3 +7,6 @@ __pycache__/
 
 # ignore jupyter notebook checkpoints
 .ipynb_checkpoints/
+
+# ignore setup background
+lungage.egg-info/
