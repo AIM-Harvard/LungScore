@@ -1,0 +1,9 @@
+# ignore vscode settings
+.vscode
+
+# ignore python cache
+__pycache__/
+*.pyc
+
+# ignore jupyter notebook checkpoints
+.ipynb_checkpoints/
