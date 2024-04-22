@@ -12,7 +12,7 @@
 <p>If you use code or parts of this code in your work, please cite our publication:<br>
 ........</p>
 
-<!-- img src="fig1.jpg" width="104" height="142" -->
+    <!-- img src="fig1.jpg" width="104" height="142" -->
 
 <h2>Repository Structure</h2>
 
@@ -25,7 +25,7 @@
 </ul>
 
 <h2>Setup</h2>
-    <p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a     virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
+<p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a     virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
 
 
 </body>
