@@ -5,8 +5,8 @@
 </head>
 <body>
 
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
+<h1>Lung Age</h1>
+<p>Fully automatic Lung Health quantification using Deep Learning. This work was published in ,,,,, - Open access!.</p>
 
 </body>
 </html>
