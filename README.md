@@ -12,17 +12,17 @@
 
 <h2>Repository Structure</h2>
 
-<p>The Lung Age repository is structured as follows:</p><br>
+<p>The Lung Age repository is structured as follows:</p>
 
 <ul>
-<li><p>All the source code to run the deep-learning-based fully automatic lung health quantification pipeline is found under the lungage folder.</p></li><br>
-<li><p>Models weights necessary to run the pipeline, are stored under the data folder.</p></li><br>
-<li><p>Statistical analysis are located in the stats_analysis folder.</p></li><br>
+<li><p>All the source code to run the deep-learning-based fully automatic lung health quantification pipeline is found under the lungage folder.</p></li>
+<li><p>Models weights necessary to run the pipeline, are stored under the data folder.</p></li>
+<li><p>Statistical analysis are located in the stats_analysis folder.</p></li>
 </ul>
 
 <h2>Run the model</h2>
-<p>To run the model on your dataset(s)</p><br>
-<p>The model can work on axial (LD)CT chest and cardiac scans where the whole or part of the lung is available, however for better quantification, whole chest CT is required.</p><br>
+<p>To run the model on your dataset(s)</p>
+<p>The model can work on axial (LD)CT chest and cardiac scans where the whole or part of the lung is available, however for better quantification, whole chest CT is required.</p>
 
     #import the model
     from models import CNNmodel
