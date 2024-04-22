@@ -7,10 +7,7 @@
 <body>
 
 <h1><b>Lung Age</b></h1>
-<p>Fully automatic Lung Health quantification using Deep Learning. This work was published in ,,,,, - Open access!</p><br>
-<p>If you use code or parts of this code in your work, please cite our publication:<br>
-........</p>
-
+<p>Automated Lung Health Quantification!</p><br>
 <!-- img src="fig1.jpg" width="104" height="142" -->
 
 <h2>Repository Structure</h2>
@@ -19,14 +16,32 @@
 
 <ul>
 <li><p>All the source code to run the deep-learning-based fully automatic lung health quantification pipeline is found under the lungage folder.</p></li><br>
-<li><p>Four sample subjects' CT data, as well as all the models weights necessary to run the pipeline, are stored under the data folder.</p></li><br>
+<li><p>Models weights necessary to run the pipeline, are stored under the data folder.</p></li><br>
 <li><p>Statistical analysis are located in the stats_analysis folder.</p></li><br>
 </ul>
 
-<h2>Setup</h2>
-<p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a     virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
+<h2>Run the model</h2>
+<p>To run the model on your dataset(s)</p><br>
+<p>The model can work on axial (LD)CT chest and cardiac scans where the whole or part of the lung is available, however for better quantification, whole chest CT is required.</p><br>
 
-    #to test the model
+    #import the model
+    from models import CNNmodel
+
+    # Load a trained model
+    model = CNNmodel(sybil_ensemble)
+
+    # Get lung damage score 
+    serie = Serie([dicom_path_1, dicom_path_2, ...])
+    scores = model.predict([serie])
+
+    #to run the model in Mhub
+    # please see ....
+  
+<h2>To train Lung Age</h2>
+    #use the training pipeling -- to do
+
+
+<h2>Cite</h2>
 
 </body>
 </html>
