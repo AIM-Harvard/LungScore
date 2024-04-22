@@ -7,7 +7,7 @@
 <body>
 
 <h1><b>Lung Age</b></h1>
-<p>Automated Lung Health Quantification!</p><br>
+<p>Automated Lung Health Quantification.</p><br>
 <!-- img src="fig1.jpg" width="104" height="142" -->
 
 <h2>Repository Structure</h2>
@@ -37,6 +37,9 @@
     #to run the model in Mhub
     # please see ....
   
+<p>You can also run the model on your dataset(s) in Mhub</p>
+    # to do
+
 <h2>To train Lung Age</h2>
     #use the training pipeling -- to do
 
