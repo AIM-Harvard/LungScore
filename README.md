@@ -12,7 +12,7 @@
 <p>If you use code or parts of this code in your work, please cite our publication:<br>
 ........</p>
 
-#<img src="fig1.jpg" width="104" height="142">
+<!img src="fig1.jpg" width="104" height="142">
 
 <h2>Repository Structure</h2>
 
