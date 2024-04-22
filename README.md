@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <h1>Project Title</h1>
+    <h1>Project Title
     
     <p>Description of the project goes here. It should provide a brief overview of what the project does and why it is useful.</p>
     
