@@ -27,7 +27,7 @@ import torch.nn.functional as F
 from utils_mhub import seg_lung
 
 #import AI_Lung_Health_Model
-from utils_mhub import CNNModel
+from utils_mhub import CNNModel   #### model architecture
 from utils_mhub import AI_lung_health_model
 ## -----------------------------
 

@@ -24,6 +24,8 @@ import os
 import torch.nn as nn
 import torch.nn.functional as F
 
+##to resample and resize nrrds
+from preprocessing import resample_and_resize
 
 def NormalizeData(data):                
     return (data - (-1024)) / ((3071) - (-1024)) 
@@ -39,6 +41,8 @@ def crop_img(img,cropx,cropy):
     #startz = z//2-(cropz//2)    
     return img[:,starty:starty+cropy,startx:startx+cropx]
 
+###################
+
 ## Lung segmentation, preprocessing and extraction
 
 def seg_lung(scan_folder):
@@ -47,9 +51,21 @@ def seg_lung(scan_folder):
         end_depth = []
 
         try:
-            scan_image = sitk.ReadImage(scan_folder)         
+            scan_image = sitk.ReadImage(scan_folder)   
 
-            scan = sitk.GetArrayFromImage(scan_image)   
+            ########################
+            
+            # resample if nrrd spacing <= 3.27, else print(spacing out of range)
+            new_spacing = [0.68, 0.68, 2.5]  # New spacing (depth, height, width)
+            resized_image, orig_spacing = resample_and_resize(scan_image, new_spacing)
+
+            if orig_spacing[-1] > 3.27:
+                print('Out of range input spacing!')
+                return 
+
+            ###################
+            
+            scan = sitk.GetArrayFromImage(resized_image)   
         
             scan = NormalizeData(scan)    
             
@@ -215,7 +231,7 @@ class CNNModel(nn.Module):
 
 
     def NormalizeData(self, data):
-         return (data - (-1024)) / ((1566) - (-1024))     # original lung health normalization
+         return (data - (-1024)) / ((1566) - (-1024))     
 
     def forward(self, x):   
 
