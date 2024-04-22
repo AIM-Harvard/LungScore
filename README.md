@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=4.0">
-    <title>Lung Age</title>
+    <title>Lung Age
 </head>
 <body>
 
