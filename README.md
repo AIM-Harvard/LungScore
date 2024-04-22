@@ -10,13 +10,23 @@
 <p>If you use code or parts of this code in your work, please cite our publication:<br>
 ........</p>
 
-<h2>Table of Contents</h2>
-    <ul>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#usage">Usage</a></li>
-        <li><a href="#contributing">Contributing</a></li>
-        <li><a href="#license">License</a></li>
-    </ul>
+<h2>Repository Structure</h2>
+<ul>
+<li><p>The Lung Age repository is structured as follows:</p></li><br>
+<p>All the source code to run the deep-learning-based fully automatic coronary calcium risk assessment pipeline is found under the src folder.</p><br>
+<p>Four sample subjects' CT data and the associated manual segmentation masks (heart + CAC), as well as all the models weights necessary to run the pipeline, are stored under the data folder.</p><br>
+<p>AI and manual results for the NLST cohort in the paper as well as the statistical analysis are located in the stats folder.</p><br>
+
+</ul>
+##########################
+
+<h3>Setup</h3>
+<p>The Lung Age repository is structured as follows:</p><br>
+<p>All the source code to run the deep-learning-based fully automatic coronary calcium risk assessment pipeline is found under the src folder.</p><br>
+<p>Four sample subjects' CT data and the associated manual segmentation masks (heart + CAC), as well as all the models weights necessary to run the pipeline, are stored under the data folder.</p><br>
+<p>AI and manual results for the NLST cohort in the paper as well as the statistical analysis are located in the stats folder.</p><br>
+
+<p>AI and manual results for the NLST cohort in the paper as well as the statistical analysis are located in the stats folder.</p><br>
     
 </body>
 </html>
