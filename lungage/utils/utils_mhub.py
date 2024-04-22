@@ -25,7 +25,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 ##to resample and resize nrrds
-from preprocessing import resample_and_resize
+from lungage.preprocessing import resample_and_resize
 
 def NormalizeData(data):                
     return (data - (-1024)) / ((3071) - (-1024)) 

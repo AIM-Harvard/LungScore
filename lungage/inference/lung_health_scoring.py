@@ -13,8 +13,8 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.nn.functional as F
 
-from dataset import Test_set
-from model import CNNModel
+from lungage.dataset import Test_set
+from lungage.model import CNNModel
 
 ## ----------------------------------------
 
