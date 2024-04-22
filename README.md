@@ -16,7 +16,7 @@
 
 <h2>Repository Structure</h2>
 
-    <p>The Lung Age repository is structured as follows:</p><br>
+    The Lung Age repository is structured as follows:
 
 <ul>
 <li><p>All the source code to run the deep-learning-based fully automatic coronary calcium risk assessment pipeline is found under the src folder.</p></li><br>
