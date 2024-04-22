@@ -21,8 +21,8 @@
 </ul>
 
 <h2>Setup</h2>
-<p>The Lung Age repository is structured as follows:</p><br>
-
+<p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
+<a href="#installation">Installation</a>
 </body>
 </html>
 
