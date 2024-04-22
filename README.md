@@ -23,7 +23,9 @@
 <h2>Setup</h2>
 <p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
 
-<a href="#installation">Installation</a>
+<h2 id="installation">Installation</h2>
+<p>Instructions for installing the project or any prerequisites needed.</p>
+    
 
 </body>
 </html>
