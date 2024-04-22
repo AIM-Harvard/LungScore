@@ -8,11 +8,11 @@
 <body>
 
 <h1><b>Lung Age</b></h1>
-    <p>Fully automatic Lung Health quantification using Deep Learning. This work was published in ,,,,, - Open access!</p><br>
-    <p>If you use code or parts of this code in your work, please cite our publication:<br>
-    ........</p>
+<p>Fully automatic Lung Health quantification using Deep Learning. This work was published in ,,,,, - Open access!</p><br>
+<p>If you use code or parts of this code in your work, please cite our publication:<br>
+........</p>
 
-    <!-- img src="fig1.jpg" width="104" height="142" -->
+<!-- img src="fig1.jpg" width="104" height="142" -->
 
 <h2>Repository Structure</h2>
 
@@ -25,27 +25,11 @@
 </ul>
 
 <h2>Setup</h2>
-<p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
+    <p>For the code to run as intended, all the packages under requirements.txt should be installed. In order not to break previous installations and ensure full compatibility, it's highly recommended to create a     virtual environment to run the DeepCAC pipeline in. Here follows an example of set-up using python virtualenv:</p><br>
 
-<h2 id="installation">Installation</h2>
-<p>Instructions for installing the project or any prerequisites needed.</p>
-    
 
 </body>
 </html>
 
-    <p>Instructions for using the project, including code examples or screenshots.</p>
-    
-    <h2 id="contributing">Contributing</h2>
-    <p>Guidelines for contributing to the project, including how to report bugs, suggest improvements, or submit pull requests.</p>
-    
-    <h2 id="license">License</h2>
-    <p>Information about the project's license.</p>
-    
-    <h2>Acknowledgements</h2>
-    <p>Any acknowledgements or credits for individuals or organizations that contributed to the project.</p>
-
-</body>
-</html>
 
 
