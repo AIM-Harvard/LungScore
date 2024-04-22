@@ -1,4 +1,4 @@
-<b>Lung Age<br>
+<h1><b>Lung Age<br>
 
 .notbold{Fully automatic lung health quantification Deep Learning. This work was published in n,,,,, - Open access!<br>
 
