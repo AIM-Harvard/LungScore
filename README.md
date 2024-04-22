@@ -1,8 +1,13 @@
-<h1><b>Lung Age<br>
 
-.notbold{Fully automatic lung health quantification Deep Learning. This work was published in n,,,,, - Open access!<br>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Title</title>
+</head>
+<body>
 
-If you use code or parts of this code in your work, please cite our publication:<br>
-.....}<br>
-
-
+    <h1>Project Title</h1>
+    
+    <p>Description of the project goes here. It should provide a brief overview of what the project does and why it is useful.</p>
+    
