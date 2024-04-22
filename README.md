@@ -1,4 +1,4 @@
-AI Lung Health<b><br>
+<b>Lung Age<br>
 
 Fully automatic lung health quantification Deep Learning. This work was published in n,,,,, - Open access!<br>
 
