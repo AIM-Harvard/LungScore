@@ -24,19 +24,15 @@
 <p>To run the model on your dataset(s)</p>
 <p>The model can work on axial (LD)CT chest and cardiac scans where the whole or part of the lung is available, however for better quantification, whole chest CT is required.</p>
 
-    #import the model
-    from models import CNNmodel
+    #Step 1: Install all our dependencies:
+    pip install AI_LUNG_HEALTH --pre
 
-    # Load a trained model
-    model = CNNmodel(sybil_ensemble)
+    #Step 2: Run this in your code environment, -GPU is needed-
+    from lungage.run import ai_lungage_score
 
-    # Get lung damage score 
-    serie = Serie([dicom_path_1, dicom_path_2, ...])
-    scores = model.predict([serie])
+    # step 3: predict AI_lung_Health_Score by passing path to your DICOM folder for one instance - ex: '/mnt/data/mydicom/'
+    ai_lungage_score = ai_lungage_score(folder_to_dcms)
 
-    #to run the model in Mhub
-    # please see ....
-  
 <p>You can also run the model on your dataset(s) in Mhub</p>
 
     #to do
