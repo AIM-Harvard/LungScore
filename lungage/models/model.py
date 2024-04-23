@@ -55,8 +55,6 @@ class CNNModel(nn.Module):
         ) 
         return conv_layer 
 
-########################
-
     def NormalizeData(self, data):
          return (data - (self.normalization_value_min)) / ((self.normalization_value_max) - (self.normalization_value_min))    
 
@@ -83,7 +81,7 @@ class CNNModel(nn.Module):
 # AI_LUNG_HEALTH Model
 class lungage(nn.Module): 
     def __init__(self): 
-        super(CNNModel, self).__init__()  
+        super(lungage, self).__init__()  
  
         self.conv_layer1 = self._conv_layer_set1(1, 16) 
         self.conv_layer2 = self._conv_layer_set234(16, 32) 
