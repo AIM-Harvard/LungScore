@@ -45,13 +45,13 @@ def crop_img(img,cropx,cropy):
 
 ## Lung segmentation, preprocessing and extraction
 
-def seg_lung(scan_folder):
+def extract_lung(nrrd_from_mhub):
    
         begin_depth = []
         end_depth = []
 
         try:
-            scan_image = sitk.ReadImage(scan_folder)   
+            scan_image = sitk.ReadImage(nrrd_from_mhub)   
 
             ########################
             
@@ -182,9 +182,9 @@ def seg_lung(scan_folder):
 ###################################
 
 # AI_LUNG_HEALTH Model
-class CNNModel(nn.Module): 
+class lungage(nn.Module): 
     def __init__(self): 
-        super(CNNModel, self).__init__()  
+        super(lungage, self).__init__()  
  
         self.conv_layer1 = self._conv_layer_set1(1, 16) 
         self.conv_layer2 = self._conv_layer_set234(16, 32) 
