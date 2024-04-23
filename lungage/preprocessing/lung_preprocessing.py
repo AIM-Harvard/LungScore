@@ -20,7 +20,7 @@ def crop_img(img,cropx,cropy):
     #startz = z//2-(cropz//2)    
     return img[:,starty:starty+cropy,startx:startx+cropx]
 
-def extract_lung(nrrd_scan):
+def lung_preprocess(nrrd_scan):
    
         begin_depth = []
         end_depth = []

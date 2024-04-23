@@ -121,7 +121,7 @@ def resize_sitk(cube_sitk, air, final_size):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-def run_core(DICOM_folder_path):
+def dicom_to_nrrd(DICOM_folder_path):
   nrrd_writer = sitk.ImageFileWriter()
 
   for fold in os.listdir(DICOM_folder_path):
