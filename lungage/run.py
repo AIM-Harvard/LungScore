@@ -8,7 +8,7 @@ from .preprocessing import extract_lung # step 2: extract and preprocess lung fr
 from .models import lungage_load # step 3: load model in eval mode with weights
 from .models import lungage_predict #step 4: predict ai lung age score 
 
-def ai_lungage_score(NRRD, device = torch.device("cuda") ):
+def ai_lungage_score(NRRD):
 
     """
     Predict AI lung age score given the path for NRRD chest CT.

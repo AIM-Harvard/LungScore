@@ -47,6 +47,11 @@
     #step 6: predict lung age from extracted lung using the loaded model
     ai_lungage_score = lungage_predict(model, extracted_lung)
 
+    #######
+    #you can combine all in one step by:
+    from lungage.run import ai_lungage_score
+    ai_lungage_score = ai_lungage_score(nrrd)
+
 
 <p>You can also run the model on your dataset(s) in Mhub</p>
 
