@@ -7,12 +7,16 @@ import numpy as np
 import SimpleITK as sitk
 
 
-def resample_and_resize(image_path, new_spacing):
+def resample_and_resize(image_path, new_spacing=[0.68, 0.68, 2.5]):
     # Load the NRRD image
     image = sitk.ReadImage(image_path)
 
     orig_size = image.GetSize()
     orig_spacing = image.GetSpacing()
+
+    if orig_spacing > 3.27:
+        print("Spacing out of range, spacing should be less than or equal 3.27")
+        quit()     
 
     new_size = [int(orig_size[0] * orig_spacing[0] / new_spacing[0]),
                 int(orig_size[1] * orig_spacing[1] / new_spacing[1]),
@@ -70,4 +74,4 @@ def resample_and_resize(image_path, new_spacing):
     pad_filter.SetPadLowerBound(new_size_down)
     resized_image = pad_filter.Execute(resized_image)
 
-    return resized_image, orig_spacing
+    return resized_image

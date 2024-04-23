@@ -1,10 +1,12 @@
 import os
 import SimpleITK as sitk
-from lungmask import mask
+#from lungmask import mask
 import numpy as np
 import cv2 
 import torch
 import monai
+
+from .resample_nrrd import resample_and_resize
 
 def NormalizeData(data):                
     return (data - (-1024)) / ((3071) - (-1024)) 
@@ -20,21 +22,29 @@ def crop_img(img,cropx,cropy):
     #startz = z//2-(cropz//2)    
     return img[:,starty:starty+cropy,startx:startx+cropx]
 
-def lung_preprocess(nrrd_scan):
+def lung_extraction(lungmask, nrrd):
    
         begin_depth = []
         end_depth = []
 
         try:
-            scan_image = sitk.ReadImage(nrrd_scan)         
+            #scan_image = sitk.ReadImage(nrrd_scan)
 
-            scan = sitk.GetArrayFromImage(scan_image)   
+            # scan_image = resample_and_resize(nrrd_path)    
+
+            # scan = sitk.GetArrayFromImage(scan_image)   
         
-            scan = NormalizeData(scan)    
+            # scan = NormalizeData(scan)    
             
-            lung_mask = mask.apply(scan_image)
+            # lung_mask = mask.apply(scan_image)
 
-            ret, thres = cv2.threshold(lung_mask, 0, 1, cv2.THRESH_BINARY) 
+            # scan_image = resample_and_resize(nrrd_path)    
+
+##########################
+            scan = sitk.GetArrayFromImage(nrrd)   
+            scan = NormalizeData(scan)    
+
+            ret, thres = cv2.threshold(lungmask, 0, 1, cv2.THRESH_BINARY) 
 
             max_area_slice = 0 
             for slc_no in range(scan.shape[0]):
@@ -112,7 +122,7 @@ def lung_preprocess(nrrd_scan):
                         largest_slice = slc_no
             
             if len(begin_depth) == 0:
-                print('No Lungs to segment: ', scan_id)
+                print('No Lungs to segment: ', scan)
                 raise Exception('Exception')
                 return
             
@@ -139,5 +149,5 @@ def lung_preprocess(nrrd_scan):
             return extracted_lung 
 
         except Exception as e:
-            print('no file/folder or error in loading: ', nrrd_scan) 
+            print('no file/folder or error in loading: ', nrrd) 
 

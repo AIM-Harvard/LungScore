@@ -1,3 +1,30 @@
+Metadata-Version: 2.1
+Name: AI_lungage
+Version: 1.0.0
+Summary: "AI Lung Health Quantification"
+Author: "Ahmed Adly - ahassan12@bwh.harvard.edu"
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: lungmask==0.2.14
+Requires-Dist: matplotlib==3.5.2
+Requires-Dist: monai==1.3.0
+Requires-Dist: nibabel==5.2.1
+Requires-Dist: numpy==1.26.4
+Requires-Dist: opencv_python==4.7.0.68
+Requires-Dist: opencv_python_headless==4.7.0.72
+Requires-Dist: pandas==1.4.4
+Requires-Dist: pydicom==2.4.4
+Requires-Dist: PyYAML==6.0.1
+Requires-Dist: scikit_learn==1.0.2
+Requires-Dist: seaborn==0.11.2
+Requires-Dist: SimpleITK==2.3.1
+Requires-Dist: torch==2.0.1
+Requires-Dist: torchmetrics==0.11.0
+Requires-Dist: torchvision==0.15.2
+Requires-Dist: wandb==0.13.9
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +58,7 @@
     pip install lungmask
 
     #Step 2: Run this in your code environment, -GPU is needed-
-    from lungage.run import preprocess, extract_lung, lungage_load, lungage_predict
+    from lungage.run import ai_lungage_score
     from lungmask import mask
 
     #step 3: preprocess nrrd and segment lung
