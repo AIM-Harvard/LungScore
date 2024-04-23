@@ -16,7 +16,7 @@ def lungage_load(model = lungage, eval_mode=True, device = "cuda" if torch.cuda.
     current_path = Path(os.getcwd())
 
     if not (current_path / "model_weights.torch").exists():
-        wget.download(weights_url, bar=bar_progress)
+        wget.download(weights_url)
 
     # Load the pretrained weights
     model.load_state_dict(torch.load(current_path / "model_weights.torch", map_location=device))
@@ -32,7 +32,3 @@ def lungage_predict(model, extracted_lung, device = "cuda" if torch.cuda.is_avai
 
     return ai_lungage_score
 
-#################
-#### return model with loaded weights in eval mode
-#model = lungage_load()
-##################
