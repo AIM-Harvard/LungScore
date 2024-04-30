@@ -7,6 +7,7 @@ from .preprocessing import extract_lung # step 2: extract and preprocess lung fr
 
 from .models import lungage_load # step 3: load model in eval mode with weights
 from .models import lungage_predict #step 4: predict ai lung age score 
+from .utils.risk_groups import predict_riskgroup #step 5: predict risk group based on lung age thresholds
 
 def ai_lungage_score(NRRD):
 
@@ -34,4 +35,7 @@ def ai_lungage_score(NRRD):
     #step 4: predict lung age from extracted lung using the loaded model
     ai_lungage_score = lungage_predict(model, extracted_lung)
 
-    return ai_lungage_score
+    #step 5: predict risk group based on lung age thresholds 
+    risk_group = predict_riskgroup(ai_lungage_score)
+
+    return ai_lungage_score, risk_group

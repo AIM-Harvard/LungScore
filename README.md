@@ -47,6 +47,9 @@
     #step 6: predict lung age from extracted lung using the loaded model
     ai_lungage_score = lungage_predict(model, extracted_lung)
 
+    #step 7: predict risk group based on lung age thresholds 
+    risk_group = predict_riskgroup(ai_lungage_score)
+
     #######
     #you can combine all in one step by:
     from lungage.run import ai_lungage_score
