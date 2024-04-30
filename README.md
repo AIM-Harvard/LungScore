@@ -8,7 +8,7 @@
 
 <h1><b>Lung Age</b></h1>
 <p>Automated Lung Health Quantification.</p>
-<img src="figures/LungHealth Fig1.png" alt="Lung Age Pipeline" width="1000" height="800"> 
+<img src="figures/LungHealth Fig1.png" alt="Lung Age Pipeline" width="1000" height="600"> 
 
 <h2>Repository Structure</h2>
 
