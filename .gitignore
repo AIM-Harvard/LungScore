@@ -14,3 +14,6 @@ AI_LUNG_HEALTH.egg-info/
 
 # ignore model weights
 model_weights/
+
+# ignore figures
+figures/
