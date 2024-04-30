@@ -22,7 +22,7 @@
 
 <h2>Run the model</h2>
 <p>To run the model on your dataset(s)</p>
-<p>The model can work on axial (LD)CT chest and cardiac scans where the whole or part of the lung is available, however for better quantification, whole chest CT is required.</p>
+<p>The model works on axial (LD)CT chest scans.</p>
 
     #Step 1: Install all our dependencies:
     pip install AI_lungage --pre
