@@ -27,10 +27,7 @@
     #Step 1: Install all our dependencies:
     pip install AI_lungage --pre
 
-    # install lungmask for lung segmentation
-    pip install lungmask
-
-    #Step 2: Run this in your code environment, -GPU is needed-
+    #Step 2: Run this in your code environment
     from lungage.run import preprocess, extract_lung, lungage_load, lungage_predict
     from lungmask import mask
 
@@ -50,8 +47,9 @@
     #step 7: predict risk group based on lung age thresholds 
     risk_group = predict_riskgroup(ai_lungage_score)
 
-    #######
-    #you can combine all in one step by:
+
+
+    # you can combine all in one step by:
     from lungage.run import ai_lungage_score
     ai_lungage_score, risk_group = ai_lungage_score(nrrd)
 
