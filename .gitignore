@@ -17,3 +17,9 @@ model_weights/
 
 # ignore figures
 figures/
+
+# R plots
+Rplots.pdf
+
+# csv
+*.csv
