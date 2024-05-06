@@ -19,9 +19,9 @@ library(tidyr)
 library(ggsurvfit)
 library(gtsummary)
 library("survminer", lib.loc="/home/ahmed/R/x86_64-pc-linux-gnu-library/4.1/languageserver/libs")
+library(plotly)
 
-
-install.packages("fontconfig", lib="/home/ahmed/R/x86_64-pc-linux-gnu-library/4.1/languageserver/libs", dependencies=TRUE)
+# install.packages("unigd", lib="/home/ahmed/R/x86_64-pc-linux-gnu-library/4.1/languageserver/libs", dependencies=TRUE)
 
 
 ###########
@@ -33,7 +33,7 @@ install.packages("fontconfig", lib="/home/ahmed/R/x86_64-pc-linux-gnu-library/4.
 
 
 # load data
-data <- read.csv('/mnt/data6/DeepPY/src_main/stats_analysis/smokeAI_NLST_test.csv')
+data <- read.csv('/mnt/data6/DeepPY/src_main/stats_analysis/smokeAI_NLST_test.csv') 
 
 # AI lung health 5 risk groups
 data$DeepPY <- factor(data$Deep_py)
@@ -54,17 +54,22 @@ fit <- survfit(Surv(fup, death) ~ DeepPY, data = data)
 my_colors <- c("skyblue3", "blue3", "red1", "tomato", "darkred")
 
 res <- ggsurvplot(fit, data = data, risk.table = TRUE,  conf.int = FALSE, censor = FALSE,
-                  ylim = c(0.5, 1), xlim = c(0, 4760), xscale = "d_y", break.x.by = 365.3,
-                  legend.labs = c("Very Low", "Low", "Moderate", "High", "Very High"),
-                  legend.title = "Survival Analysis of AI lung health risk groups in NLST test cohort", legend = c(0.37, 0.2),
+                  ylim = c(0.4, 1), xlim = c(0, 5110), xscale = "d_y", break.x.by = 365.3,
+                  legend.labs = c("Very Low", "Low", "Moderate", "High", "Very High"), 
+                  legend.title = "n=2581\n\nHazard ratio\nVery Low: Reference\nLow: 2.27 (95% CI, 0.93-1.26), P=0.072\nModerate: 2.27 (95% CI, 0.93-1.26), P=0.072\nHigh: 2.27 (95% CI, 0.93-1.26), P=0.072\nVery High: 2.27 (95% CI, 0.93-1.26), P=0.072",
+                  legend = c(0.22, 0.21),
                   tables.theme = theme_cleantable(),
-                  risk.table.height = 0.25, xlab = 'Time (Years)', ylab = 'Death Free Survival',
+                  risk.table.height = 0.25, xlab = 'Time (Years)', ylab = 'ACM Free Survival',
                   palette = my_colors) 
 
 # Modify legend and plot aesthetics
-res$plot <- res$plot + theme(legend.key.width = unit(8, "mm"),
-                             legend.key.height = unit(5, "mm"),
-                             legend.text = element_text(size = 12))
+res$plot <- res$plot + theme(legend.key.width = unit(0, "mm"),
+                             legend.key.height = unit(0, "mm"),
+                             legend.text = element_blank())
+
 
 print(res)
 
+jpeg(filename="/mnt/data6/DeepPY/src_main/km.jpeg", width=600, height=400)
+print(res)
+dev.off()

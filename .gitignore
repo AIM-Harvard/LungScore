@@ -23,3 +23,7 @@ Rplots.pdf
 
 # csv
 *.csv
+
+# csv
+*.jpeg
+*.png
