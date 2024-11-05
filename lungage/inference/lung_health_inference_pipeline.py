@@ -88,7 +88,7 @@ def test(model, data_loader):
             imgs,scan = batch
             pred = model.to(device)(imgs.to(device).unsqueeze(1))  
             
-            pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 1]  
+            pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 0] # 0 for the updated version of lung health , higher score --> better outcome  
 
             print(scan)
             print(pred)

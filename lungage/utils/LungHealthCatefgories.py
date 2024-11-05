@@ -28,15 +28,18 @@ def predict_riskgroup(ai_lung_age_score):
     Returns:
         risk group category
     """
+    #to get old score pipeline
+    ai_lung_age_score  =  1 - ai_lung_age_score
+    
     if ai_lung_age_score <= 0.3239:     
-        risk_group_category = "Group1: Very low risk"
+        Lung_Health_category = "Group1: Very High Lung Health"
     elif (ai_lung_age_score > 0.3239) and (ai_lung_age_score <= 0.4345):   
-        risk_group_category = "Group2: Low risk"
+        Lung_Health_category = "Group2: High Lung Health"
     elif (ai_lung_age_score > 0.4345) and (ai_lung_age_score <= 0.5478):   
-        risk_group_category = "Group3: Intermediate risk" 
+        Lung_Health_category = "Group3: Moderate Lung Health" 
     elif (ai_lung_age_score > 0.5478) and (ai_lung_age_score <= 0.7123):  
-        risk_group_category = "Group4: High risk"
+        Lung_Health_category = "Group4: Low Lung Health"
     else:         
-        risk_group_category = "Group5: Very High risk"
+        Lung_Health_category = "Group5: Very Low Lung Health"
 
-    return risk_group_category
+    return Lung_Health_category

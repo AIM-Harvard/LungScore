@@ -1,11 +1,19 @@
 from .lung_preprocessing import lung_extraction
 from .lung_preprocessing import resample_and_resize
+from .lung_preprocessing import dicom_to_nrrd
 from lungmask import mask
+
+#DICOM to NRRD
+def dcm_to_nrrd(dcm_path):
+
+    nrrd_scan = dicom_to_nrrd(dcm_path) 
+
+    return nrrd_scan
 
 #preprocess nrrd
 def preprocess(nrrd_path):
 
-    nrrd_scan = preprocess(nrrd_path) 
+    nrrd_scan = resample_and_resize(nrrd_path) 
 
     return nrrd_scan
 

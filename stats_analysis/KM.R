@@ -70,6 +70,6 @@ res$plot <- res$plot + theme(legend.key.width = unit(0, "mm"),
 
 print(res)
 
-jpeg(filename="/mnt/data6/DeepPY/src_main/km.jpeg", width=600, height=400)
-print(res)
-dev.off()
+# jpeg(filename="/mnt/data6/DeepPY/src_main/km.jpeg", width=600, height=400)
+# print(res)
+# dev.off()
