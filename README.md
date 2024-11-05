@@ -28,8 +28,11 @@
     pip install AI_lungage --pre
 
     #Step 2: Run this in your code environment
-    from lungage.run import preprocess, extract_lung, lungage_load, lungage_predict
+    from lungage.run import dcm_to_nrrd, preprocess, extract_lung, lungage_load, lungage_predict
     from lungmask import mask
+
+    #step 3: if Dicom, else jump to next step to NRRD
+    nrrd = dcm_to_nrrd(dcm_path)
 
     #step 3: preprocess nrrd and segment lung
     nrrd = preprocess(nrrd_path)
