@@ -8,13 +8,20 @@ import SimpleITK as sitk
 
 
 def resample_and_resize(image_path, new_spacing=[0.68, 0.68, 2.5]):
+    """
+    resample and resize nrrd scan based on AI lung health selection
+    Args:
+        image_path (str): path to NRRD scan
+    Returns:
+        resized_image: resampled and resized loaded NRRD scan
+    """
     # Load the NRRD image
     image = sitk.ReadImage(image_path)
 
     orig_size = image.GetSize()
     orig_spacing = image.GetSpacing()
 
-    if orig_spacing > 3.27:
+    if orig_spacing[2] > 3.27:
         print("Spacing out of range, spacing should be less than or equal 3.27")
         quit()     
 
@@ -75,3 +82,5 @@ def resample_and_resize(image_path, new_spacing=[0.68, 0.68, 2.5]):
     resized_image = pad_filter.Execute(resized_image)
 
     return resized_image
+
+
