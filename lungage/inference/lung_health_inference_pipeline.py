@@ -1,7 +1,8 @@
 """
   Deep-learning biomarker for Lung Health testing pipeline
 """
-
+from pathlib import Path
+import wget
 import os
 import yaml
 import argparse
@@ -13,12 +14,14 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.nn.functional as F
 
-from lungage.dataset import Test_set
-from lungage.model import CNNModel
+from lungage.datasets.dataset import Test_set
+from lungage.models.model import CNNModel
 
 ## ----------------------------------------
+script_dir = '/mnt/data6/DeepPY/src_main/'
+base_conf_file_path = os.path.join(script_dir, 'config')
 
-base_conf_file_path = 'config/'
+#base_conf_file_path = 'config/'
 conf_file_list = [f for f in os.listdir(base_conf_file_path) if f.split('.')[-1] == 'yaml']
 
 parser = argparse.ArgumentParser(description = 'Run testing pipeline')
@@ -50,7 +53,7 @@ testing_data_folder_path = yaml_conf["io"]["path_to_data_folder_testing"]
 csv_path_to_save_lung_health_scores = yaml_conf["io"]["csv_path_to_save_lung_health_scores"]
 
 # subdir under which the network weights are saved
-model_weights_saved_name = yaml_conf["io"]["model_weights_saved_name"]
+model_weights_url = yaml_conf["io"]["model_weight_url_to_download"]
 
 device_cuda = yaml_conf["io"]["device_cuda"]
 
@@ -74,40 +77,64 @@ data_loader = DataLoader(dataset, batch_size=testing_batch_size, shuffle = False
 model = CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max)
 device = torch.device(device_cuda)
 
+###################################
+
+# download model weights
+def download_model_weights(model):
+  
+  #specificy working directory
+  current_path = Path(os.getcwd())
+
+  # download model weights in the specified working directory
+  if not (current_path / "model_weights.pth").exists():
+    wget.download(model_weights_url, out=os.path.join(os.getcwd(), 'model_weights.pth'))
+
+    # Load the pretrained weights
+  model = nn.DataParallel(model, device_ids = [0, 2, 3])
+ 
+  model.load_state_dict(torch.load(current_path / "model_weights.pth", map_location=device))
+    
+  return model
+
 
 #######################
 
-
-def test(model, data_loader):
+# predict lung health score
+def test(data_loader):
+    
     scans = []
     scores = []
-
+    
+    # download and load model weights 
+    model = download_model_weights(model = CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max))
+    
+    # model in evaluation mode
     model.eval()
     with torch.no_grad():
         for batch in data_loader:
-            imgs,scan = batch
+            imgs, scan = batch
             pred = model.to(device)(imgs.to(device).unsqueeze(1))  
             
+            # get a score between 0 to 1 , representing lung health
             pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 0] # 0 for the updated version of lung health , higher score --> better outcome  
 
-            print(scan)
-            print(pred)
+            #print(scan)
+            #print(pred)
 
             scans.append(scan)
             scores.append(pred)
 
-    ai_health = pd.DataFrame(
+    ai_lung_health = pd.DataFrame(
     {'Scan': list(scans),
     'AI_Lung_Health_Score': list(scores)
     })
-    ai_health.to_csv(csv_path_to_save_lung_health_scores)
+    ai_lung_health.to_csv(csv_path_to_save_lung_health_scores)
 
-
+# run inference pipeline
 def main():
-    test(model, data_loader)
-
+    test(data_loader = data_loader)
 
 if __name__ == "__main__":
  
-  print("\nTesting Pipeline Starting.. ---\n")
+  print("\nInference Pipeline Starting.. ---\n")
   main()
