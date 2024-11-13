@@ -27,19 +27,19 @@ def train(model, data_loader, optimizer):
         optimizer.zero_grad() 
 
         preds = model.to(device)(imgs.to(device).unsqueeze(1))  
-
+      
         loss = crit(preds, labels)  
- 
+    
         train_loss += loss 
 
         pred = torch.argmax(preds, dim=1)    
         acc = accuracy(pred, labels) 
-
+      
         train_logits = np.append(train_logits, F.softmax(preds.cpu().detach(), dim=1).numpy()[:, 1]) 
         train_labels = np.append(train_labels, (labels.cpu().detach().numpy()))
  
         train_acc += acc  
-
+      
         loss.backward()
         optimizer.step()
 

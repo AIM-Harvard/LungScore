@@ -26,13 +26,15 @@ import pandas as pd
 import monai
 import torchvision.models as models
 
-from dataset import Train_set, Tune_set
-from model import CNNModel
-from training import train, tune
+from lungage.datasets.dataset import Train_set, Tune_set
+from lungage.models.model import CNNModel
+from lungage.training.training import train, tune
 
 ## ----------------------------------------
+# path to config file
+script_dir = os.path.dirname(os.path.abspath(__file__))
+base_conf_file_path = os.path.join(script_dir, '..', '..', 'config')
 
-base_conf_file_path = 'config/'
 conf_file_list = [f for f in os.listdir(base_conf_file_path) if f.split('.')[-1] == 'yaml']
 
 parser = argparse.ArgumentParser(description = 'Run training pipeline')
@@ -57,8 +59,8 @@ with open(conf_file_path) as f:
 training_data_folder_path = yaml_conf["io"]["path_to_data_folder_training"]
 tuning_data_folder_path = yaml_conf["io"]["path_to_data_folder_tuning"]
 
-path_to_labels_training =  yaml_conf["io"]["path_to_labels_training"]
-path_to_labels_tuning =  yaml_conf["io"]["path_to_labels_tuning"]
+path_to_csv_training =  yaml_conf["io"]["path_to_csv_training"]
+path_to_csv_tuning =  yaml_conf["io"]["path_to_csv_tuning"]
 
 # subdir under which the network weights should be saved
 model_weights_foldertosave_name = yaml_conf["io"]["model_weights_foldertosave_name"]
@@ -82,20 +84,19 @@ normalization_values = yaml_conf["wandb"]["normalization_values"]
 Aim = yaml_conf["wandb"]["Aim"]
 
 ##########################################
-
-# setup training pipeline
-
-dataset = Train_set(training_data_folder_path, path_to_labels_training)
-data_loader = DataLoader(dataset, batch_size=training_batch_size, shuffle = True)
-
-val_dataset = Tune_set(tuning_data_folder_path, path_to_labels_tuning)
-tune_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle = False)  
- 
 # disturbed training 
 model = nn.DataParallel(CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max), device_ids = [0, 1, 2])
 
 optimizer = torch.optim.Adam(model.parameters(), lr=training_learningrate)             
  
+# setup training pipeline
+
+dataset = Train_set(training_data_folder_path, path_to_csv_training)
+data_loader = DataLoader(dataset, batch_size=training_batch_size, shuffle = True)
+
+val_dataset = Tune_set(tuning_data_folder_path, path_to_csv_tuning)
+tune_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle = False)  
+
 #######################
 
 
@@ -122,11 +123,11 @@ def main():
 
       t = time.time() 
       # wandb.watch(model, log='all')
-
+     
       train_loss, train_acc, train_labels, train_logits = train(model, data_loader, optimizer)
       train_AUC =  roc_auc_score(train_labels, train_logits)   
 
-      tune_loss, tune_acc, tune_labels, tune_logits = tune(model, tune_data_loader, optimizer)
+      tune_loss, tune_acc, tune_labels, tune_logits = tune(model, tune_data_loader)
       tune_AUC =  roc_auc_score(tune_labels, tune_logits)     
 
 
@@ -136,14 +137,14 @@ def main():
         Best_Tune_AUC = tune_AUC
         torch.save(model.state_dict(), model_weights_foldertosave_name+'best_model_AUC_onTune_atepoch'+str(epoch))
 
-      wandb.log({"Epoch": epoch, "Tune_AUC": tune_AUC})  
-      wandb.log({"Epoch": epoch, "Tune_AUC": train_AUC})  
+      #wandb.log({"Epoch": epoch, "Tune_AUC": tune_AUC})  
+      #wandb.log({"Epoch": epoch, "Tune_AUC": train_AUC})  
 
-      wandb.log({"epoch": epoch, "train_loss": train_loss}) 
-      wandb.log({"epoch": epoch, "tune_loss": tune_loss}) 
+      #wandb.log({"epoch": epoch, "train_loss": train_loss}) 
+      #wandb.log({"epoch": epoch, "tune_loss": tune_loss}) 
 
-      wandb.log({"epoch": epoch, "train_acc": train_acc})  
-      wandb.log({"epoch": epoch, "tune_acc": tune_acc})  
+      #wandb.log({"epoch": epoch, "train_acc": train_acc})  
+      #wandb.log({"epoch": epoch, "tune_acc": tune_acc})  
 
       print(f'Epoch: {epoch:03d}, Train_Loss: {train_loss:.4f}, Tune_Loss: {tune_loss:.4f}, time: {(time.time() - t):.4f}s')
       print(f'Epoch: {epoch:03d}, Train_AUC: {train_AUC:.4f}, , Tune_AUC: {tune_AUC:.4f}')
