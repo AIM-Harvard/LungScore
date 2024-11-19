@@ -42,7 +42,7 @@ class Test_set(Dataset):
     def __getitem__(self, idx):
         # Retrieve image path and label from the CSV
         img_path = os.path.join(self.path_dir_to_imgs, self.data.iloc[idx, 0])
-        scan_name = 
+        scan_name = os.path.splitext(os.path.basename(image_path))[0]
         
         # read the image
         image = np.load(img_path)

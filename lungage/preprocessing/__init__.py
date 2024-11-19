@@ -1,20 +1,20 @@
 from .lung_preprocessing import lung_extraction
 from .lung_preprocessing import resample_and_resize
-from .lung_preprocessing import dicom_to_nrrd
+#from .dcm_to_nrrds import dicom_to_nrrd
 from lungmask import mask
 
 #DICOM to NRRD
-def dcm_to_nrrd(dcm_path):
-    """
-    Convert DICOM to NRRD - given DICOM folder with all dcm files of the same scan only
-    Args:
-        dcm_path (str): Folder with all DCM files of the same scan
-    Returns:
-        nrrd_scan: NRRD Scan
-    """
-    nrrd_scan = dicom_to_nrrd(dcm_path) 
-
-    return nrrd_scan
+# def dcm_to_nrrd(dcm_path):
+#     """
+#     Convert DICOM to NRRD - given DICOM folder with all dcm files of the same scan only
+#     Args:
+#         dcm_path (str): Folder with all DCM files of the same scan
+#     Returns:
+#         nrrd_scan: NRRD Scan
+#     """
+#     nrrd_scan = dicom_to_nrrd(dcm_path) 
+#     print(nrrd_scan)
+#     return nrrd_scan
 
 ########################
 

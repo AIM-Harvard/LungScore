@@ -32,7 +32,7 @@
     from lungmask import mask
 
     #step 3: if Dicom, else jump to next step to NRRD
-    nrrd = dcm_to_nrrd(dcm_path)
+    #nrrd = dcm_to_nrrd(dcm_path)
 
     #step 3: preprocess nrrd and segment lung
     nrrd = preprocess(nrrd_path)

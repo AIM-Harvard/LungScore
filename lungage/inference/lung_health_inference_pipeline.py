@@ -111,16 +111,14 @@ def test(data_loader):
     model.eval()
     with torch.no_grad():
         for batch in data_loader:
-            imgs, scan = batch
+            imgs, scan_id_name = batch
             pred = model.to(device)(imgs.to(device).unsqueeze(1))  
             
             # get a score between 0 to 1 , representing lung health
             pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 0] # 0 for the updated version of lung health , higher score --> better outcome  
-
-            #print(scan)
-            #print(pred)
             
-            scan_id_name = os.path.splitext(scan)[0]
+            #scan_id_name = os.path.splitext(scan_id_name)[0]
+            
             scans.append(scan_id_name)
             scores.append(pred)
 
