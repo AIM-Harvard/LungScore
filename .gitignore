@@ -34,5 +34,5 @@ Rplots.pdf
 lung_cancer_data/
 
 # python files
-dcm_to_nrrd_pipeline.py
-dcm_to_nrrds.py
+preprocessing/dcm_to_nrrd_pipeline.py
+preprocessing/dcm_to_nrrds.py
