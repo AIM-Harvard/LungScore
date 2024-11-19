@@ -18,10 +18,9 @@ from lungage.datasets.dataset import Test_set
 from lungage.models.model import CNNModel
 
 ## ----------------------------------------
-script_dir = '/mnt/data6/DeepPY/src_main/'
-base_conf_file_path = os.path.join(script_dir, 'config')
+script_dir = os.path.dirname(os.path.abspath(__file__))
+base_conf_file_path = os.path.join(script_dir, '..', '..', 'config')
 
-#base_conf_file_path = 'config/'
 conf_file_list = [f for f in os.listdir(base_conf_file_path) if f.split('.')[-1] == 'yaml']
 
 parser = argparse.ArgumentParser(description = 'Run testing pipeline')
@@ -120,8 +119,9 @@ def test(data_loader):
 
             #print(scan)
             #print(pred)
-
-            scans.append(scan)
+            
+            scan_id_name = os.path.splitext(scan)[0]
+            scans.append(scan_id_name)
             scores.append(pred)
 
     ai_lung_health = pd.DataFrame(

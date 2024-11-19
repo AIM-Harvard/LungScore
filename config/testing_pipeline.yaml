@@ -1,10 +1,12 @@
 io:
+  # folder should contain numpy array of extracted lungs
   path_to_data_folder_testing: '/mnt/data6/DeepPY/ai_lung_damage/data/test/'
-  csv_path_to_save_lung_health_predicted_scores: '/mnt/data6/DeepPY/src_main/CSVs/test'
+
+  csv_path_to_save_lung_health_scores: '/mnt/data6/DeepPY/src_main/CSVs/test_try'   
 
   # subdir under which the network weights should be saved
-  model_weights_saved_name: '/mnt/data6/DeepPY/src_main/model_weights/'
- 
+  model_weight_url_to_download: "https://zenodo.org/records/14065852/files/AI_Lung_Health_Model.pth"
+
   device_cuda: 'cuda:0'
 
 

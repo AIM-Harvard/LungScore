@@ -2,6 +2,7 @@ import os
 import pickle
 from pathlib import Path
 import torch.nn.functional as F
+import requests
 
 import torch
 import torch.nn as nn
@@ -10,25 +11,45 @@ from .model import lungage
 
 def lungage_load(model = lungage, eval_mode=True, device = "cuda" if torch.cuda.is_available() else "cpu"):
 
+    """
+    Load Lung Health Model 
+    Args:
+        model (str): lungage  - model name to call - 
+        eval_mode: True to run model in evaluation mode 
+    Returns:
+        AI_Lung_health_score --> A score between 0 to 1 - 1: most healthy lung, while 0 is most damaged lung
+    """
+    # call the model to device
     model = lungage().to(device)
 
-    weights_url = "https://zenodo.org/records/11047105?token=eyJhbGciOiJIUzUxMiIsImlhdCI6MTcxMzg3MzU1OCwiZXhwIjoxODkzNDU1OTk5fQ.eyJpZCI6IjUxMDE5NWIzLTg4OGUtNGViMS05YjU1LWQ5OGRmODc4N2YzOCIsImRhdGEiOnt9LCJyYW5kb20iOiIzNmZmODVjYmVlM2Q2NzFhM2E3Yzc4NGI5NzU0ZmJkNCJ9.f8-n5LbLSV-nOWOpok0fyTrxrWlBBvi_gdICJHStHQSvriWI5BcxYdHHPytpicGNMy1y-rpm07XOw988QuszqQ"
+    
+    # download model weights
+    weights_url = "https://zenodo.org/records/14065852/files/AI_Lung_Health_Model.pth"
     current_path = Path(os.getcwd())
 
-    if not (current_path / "model_weights.torch").exists():
-        wget.download(weights_url)
+    if not (current_path / "model_weights.pth").exists():
+        wget.download(weights_url, out=os.path.join(os.getcwd(), 'model_weights.pth'))
 
     # Load the pretrained weights
-    model.load_state_dict(torch.load(current_path / "model_weights.torch", map_location=device))
-   
+    model = nn.DataParallel(model, device_ids = [0, 2, 3])
+
+    model.load_state_dict(torch.load(current_path / "model_weights.pth", map_location=device))
+    
     if eval_mode:
         model.eval()
 
     return model
 
 def lungage_predict(model, extracted_lung, device = "cuda" if torch.cuda.is_available() else "cpu"):
-
-    ai_lungage_score = F.softmax(model(extracted_lung.to(device).unsqueeze(0).unsqueeze(0)).cpu().detach(), dim=1).numpy()[:, 1] 
+    """
+    Predict AI lung health score given the segmented lung
+    Args:
+        model: lung health model to 
+        extracted lung: segmented lung from NRRD Scan 
+    Returns:
+        AI_Lung_health_score --> A score between 0 to 1 - 1: most healthy lung, while 0 is most damaged lung
+    """
+    ai_lungage_score = F.softmax(model(extracted_lung.to(torch.float32).to(device).unsqueeze(0).unsqueeze(0)).cpu().detach(), dim=1).numpy()[:, 0] # higher score means healthier lung therefore better outcome 
 
     return ai_lungage_score
 

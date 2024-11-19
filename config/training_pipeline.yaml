@@ -1,9 +1,14 @@
 io:
+  # root path to data
   path_to_data_folder_training: '/mnt/data6/DeepPY/ai_lung_damage/data/train/'
   path_to_data_folder_tuning: '/mnt/data6/DeepPY/ai_lung_damage/data/tune/'
 
-  path_to_labels_training: '/mnt/data6/DeepPY/ai_lung_damage/data/labels/train_q1nochronicfindings_updated.npy'
-  path_to_labels_tuning: '/mnt/data6/DeepPY/ai_lung_damage/data/labels/tune_q1nochronicfindings_updated.npy'
+  #path_to_labels_training: '/mnt/data6/DeepPY/ai_lung_damage/data/labels/train_q1nochronicfindings_updated.npy'
+  #path_to_labels_tuning: '/mnt/data6/DeepPY/ai_lung_damage/data/labels/tune_q1nochronicfindings_updated.npy'
+  
+  # csv with data file name and label
+  path_to_csv_training: '/mnt/data6/DeepPY/ai_lung_damage/data/labels/dataset.csv'
+  path_to_csv_tuning: '/mnt/data6/DeepPY/ai_lung_damage/data/labels/dataset.csv'
   
   # subdir under which the network weights should be saved
   model_weights_foldertosave_name: '/mnt/data6/DeepPY/src_main/model_weights/'
