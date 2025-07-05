@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1><b>Lung Health</b></h1>
+<h1><b>Lung Age</b></h1>
 <p>Automated Lung Health Quantification.</p>
 <img src="figures/overview_figure_1_lung_health.jpg" alt="Lung Health Pipeline" width="800" height="500"> 
 
