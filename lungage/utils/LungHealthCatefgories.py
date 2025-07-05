@@ -24,7 +24,7 @@ def predict_riskgroup(ai_lung_health_score):
     """
     predict risk group based on lung health thresholds from tuning set based on 5 risk groups
     Args:
-        ai_lung_age_score (int): (values from 0 to 1) representing lung age
+        ai_lung_health_score (int): (values from 0 to 1) representing lung health
     Returns:
         risk group category
     """

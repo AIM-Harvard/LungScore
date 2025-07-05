@@ -6,41 +6,41 @@ from .preprocessing import preprocess #step 0: preprocess NRRD, make sure of spa
 from .preprocessing import segment_lung #step 1: segment lung from NRRD
 from .preprocessing import extract_lung # step 2: extract and preprocess lung from segmented lung NRRD
 
-from .models import lungage_load # step 3: load model in eval mode with weights
-from .models import lungage_predict #step 4: predict ai lung age score 
+from .models import lunghealth_load # step 3: load model in eval mode with weights
+from .models import lunghealth_predict #step 4: predict ai lung age score 
 from .utils import predict_lunghealth_riskcategory #step 5: predict risk group based on lung age thresholds
 
 def ai_lungage_score(NRRD):
 
     """
-    Predict AI lung age score given the path for NRRD chest CT.
+    Predict AI lung health score given the path for NRRD chest CT.
 
     Args:
         folder_path (str): Path to the nrrd scan
     Returns:
-        AI_Lung_Age_score --> 0 to 1, which 1 is most damage
+        ai_lunghealth_score --> 0 to 1 -- 1 is most healthy
     """
 
-    # if dicom then start with step 00 , if NRRD then start with step 0
-    #step 00: dicom to nrrd
-    #nrrd = dcm_to_nrrd(dcm_path)
+    # if dicom then start with step 0 , if NRRD then start with step 1
+    # step 0: dicom to nrrd
+    # nrrd = dcm_to_nrrd(dcm_path)
     
-    #step 0: read nrrd and resample
+    # step 1: read nrrd and resample
     nrrd = preprocess(NRRD)
 
-    #step 1: segment the lung
+    # step 2: segment the lung
     segmented_lung = segment_lung(nrrd) 
 
-    #step 2: preprocessing the lung
+    # step 3: preprocessing the lung
     extracted_lung = extract_lung(segmented_lung, nrrd)
 
-    #step 3: load the model
-    model = lungage_load()
+    # step 4: load the lung health model
+    model = lunghealth_load()
 
-    #step 4: predict lung health from extracted lung using the loaded model
-    ai_lungage_score = lungage_predict(model, extracted_lung)
+    # step 5: predict lung health from extracted lung using the loaded model
+    ai_lunghealth_score = lunghealth_predict(model, extracted_lung)
 
-    #step 5: predict risk group based on lung health thresholds 
-    risk_group = predict_lunghealth_riskcategory(ai_lungage_score)
+    # step 6: predict risk group based on lung health thresholds 
+    risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)
 
-    return ai_lungage_score, risk_group
+    return ai_lunghealth_score, risk_group
