@@ -23,12 +23,17 @@ def define_riskgroups_tuneset(tune_preds):
 def predict_riskgroup(ai_lung_health_score):
     """
     predict risk group based on lung health thresholds from tuning set based on 5 risk groups
+    0-25% - Very low risk group
+    25%-50% - Low risk group
+    50%-75% - Moderate risk group
+    75%-95% - High risk group
+    95%-100% - Very high risk group
     Args:
         ai_lung_health_score (int): (values from 0 to 1) representing lung health
     Returns:
         risk group category
     """
-    #to get old score pipeline
+    # lung health cut-offs calculated on tuning set based on lung damage score (1- lung health score)
     ai_lung_health_score  =  1 - ai_lung_health_score
     
     if ai_lung_health_score <= 0.3239:     

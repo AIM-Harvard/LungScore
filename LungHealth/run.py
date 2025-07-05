@@ -40,7 +40,7 @@ def ai_lungage_score(NRRD):
     # step 5: predict lung health from extracted lung using the loaded model
     ai_lunghealth_score = lunghealth_predict(model, extracted_lung)
 
-    # step 6: predict risk group based on lung health thresholds 
+    # step 6: predict risk group based on lung health thresholds (1 to 5 -- very high, high, moderate, low, very low))
     risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)
 
-    return ai_lunghealth_score, risk_group
+    return ai_lunghealth_score, risk_group 

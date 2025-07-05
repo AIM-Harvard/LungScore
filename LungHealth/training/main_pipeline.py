@@ -26,9 +26,9 @@ import pandas as pd
 import monai
 import torchvision.models as models
 
-from lungage.datasets.dataset import Train_set, Tune_set
-from lungage.models.model import CNNModel
-from lungage.training.training import train, tune
+from LungHealth.datasets.dataset import Train_set, Tune_set
+from LungHealth.models.model import CNNModel
+from LungHealth.training.training import train, tune
 
 ## ----------------------------------------
 # path to config file
