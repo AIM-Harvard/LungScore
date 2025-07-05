@@ -6,16 +6,16 @@
 </head>
 <body>
 
-<h1><b>Lung Age</b></h1>
+<h1><b>Lung Health</b></h1>
 <p>Automated Lung Health Quantification.</p>
-<img src="figures/LungHealth Fig1.png" alt="Lung Age Pipeline" width="800" height="500"> 
+<img src="figures/overview_figure_1_lung_health.png" alt="Lung Health Pipeline" width="800" height="500"> 
 
 <h2>Repository Structure</h2>
 
-<p>The Lung Age repository is structured as follows:</p>
+<p>The Lung Health repository is structured as follows:</p>
 
 <ul>
-<li><p>All the source code to run the deep-learning-based fully automatic lung health quantification pipeline is found under the lungage folder.</p></li>
+<li><p>All the source code to run the deep-learning-based fully automatic lung health quantification pipeline is found under the Lung health folder.</p></li>
 <li><p>Models weights necessary to run the pipeline, can be downloaded from zenodo - see next section -.</p></li>
 <li><p>Statistical analysis are located in the stats_analysis folder.</p></li>
 </ul>
