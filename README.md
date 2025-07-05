@@ -8,7 +8,7 @@
 
 <h1><b>Lung Health</b></h1>
 <p>Automated Lung Health Quantification.</p>
-<img src="figures/overview_figure_1_lung_health.png" alt="Lung Health Pipeline" width="800" height="500"> 
+<img src="figures/overview_figure_1_lung_health.jpg" alt="Lung Health Pipeline" width="800" height="500"> 
 
 <h2>Repository Structure</h2>
 
@@ -51,22 +51,10 @@
     risk_group = predict_riskgroup(ai_lungage_score)
 
 
-
     # you can combine all in one step by:
     from lungage.run import ai_lungage_score
     ai_lungage_score, risk_group = ai_lungage_score(nrrd)
 
-
-<p>You can also run the model on your dataset(s) in Mhub</p>
-
-    #to do
-    #to do
-
-<h2>To train Lung Age</h2>
-    #use the training pipeling -- to do
-
-
-<h2>Cite</h2>
 
 </body>
 </html>
