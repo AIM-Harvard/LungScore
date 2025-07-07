@@ -18,11 +18,17 @@ Example usage at the end of this file
 
 
 # load libraries
-library(survival)
-library(lubridate) 
+library(meta)
+require(survival)
+library(survminer) 
+library(dplyr)
+library(grid)
+library(gridExtra)
+library(meta)
+library(naniar)
 library(ggplot2)
-library(ggsurvfit)
-library(gtsummary)
+library(scales)
+library(ggpubr)
 
 ############################
 # KM Plot function
@@ -199,6 +205,8 @@ cal_4df_pvalue_unadj <- function(data, time_col, event_col, group_col) {
   return(p_value)
 }
 
+
+####################################################
 
 # Example usage for oevrall survival in NLST
 # read data

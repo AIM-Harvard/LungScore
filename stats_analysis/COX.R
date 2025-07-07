@@ -18,11 +18,17 @@ Example usage at the end of this file
 
 
 # load libraries
-library(survival)
-library(lubridate) 
+library(meta)
+require(survival)
+library(survminer) 
+library(dplyr)
+library(grid)
+library(gridExtra)
+library(meta)
+library(naniar)
 library(ggplot2)
-library(ggsurvfit)
-library(gtsummary)
+library(scales)
+library(ggpubr)
 
 ############################
 # COX analysis adjusted function
