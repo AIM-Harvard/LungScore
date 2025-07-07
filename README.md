@@ -40,8 +40,8 @@
 
 
     # you can combine all in one step by:
-    from LungHealth.run import AILunghealthscore
-    ai_lunghealth_score, risk_group = AILunghealthscore(nrrd_path)
+    from LungHealth.run import AILunghealthpredict
+    ai_lunghealth_score, risk_group = AILunghealthpredict(nrrd_path)
 
 
 </body>
