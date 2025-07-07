@@ -10,7 +10,7 @@ from .models import lunghealth_load # step 4: load model in eval mode with weigh
 from .models import lunghealth_predict #step 5: predict ai lung age score 
 from .utils import predict_lunghealth_riskcategory #step 6: predict risk group based on lung age thresholds
 
-def AILunghealthscore(NRRD):
+def AILunghealthpredict(NRRD):
 
     """
     Predict AI lung health score given the path for NRRD chest CT.
