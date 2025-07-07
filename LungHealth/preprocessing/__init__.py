@@ -19,7 +19,7 @@ from lungmask import mask
 ########################
 
 # preprocess nrrd
-def preprocess(nrrd_path):
+def preprocess_nrrd(nrrd_path):
     """
     Read and Resample NRRD based on AI Lung Health selection
     Args:
@@ -48,16 +48,16 @@ def segment_lung(nrrd_scan):
 
 ######################
 
-#extract and preprocess lung from segmented lung
-def extract_lung(lungmask, nrrd):
+#preprocess segmented lung
+def preprocess_lung(lungmask, nrrd):
     """
-    Extract and preprocess lung mask model output
+    preprocess lung mask model output
     Args:
        lungmask: the output of lung mask model
        nrrd: the corresponding loaded NRRD scan 
     Returns:
-        extracted_lung: extracted and preprocessing lung 
+        preprocessed_lung: preprocessed lung 
     """
-    extracted_lung = lung_extraction(lungmask, nrrd)
+    preprocessed_lung = lung_extraction(lungmask, nrrd)
 
-    return extracted_lung
+    return preprocessed_lung

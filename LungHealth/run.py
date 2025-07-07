@@ -2,9 +2,9 @@ import torch
 import torch.nn.functional as F
 
 #from .preprocessing import dcm_to_nrrd #step 00: DICOM to NRRD
-from .preprocessing import preprocess #step 1: preprocess NRRD, make sure of spacing , size, etc...
+from .preprocessing import preprocess_nrrd #step 1: preprocess NRRD, make sure of spacing , size, etc...
 from .preprocessing import segment_lung #step 2: segment lung from NRRD
-from .preprocessing import extract_lung # step 3: extract and preprocess lung from segmented lung NRRD
+from .preprocessing import preprocess_lung # step 3: preprocess lung from segmented lung NRRD
 
 from .models import lunghealth_load # step 4: load model in eval mode with weights
 from .models import lunghealth_predict #step 5: predict ai lung age score 
@@ -22,19 +22,19 @@ def AILunghealthpredict(NRRD):
     """
     
     # step 1: read nrrd and resample
-    nrrd = preprocess(NRRD)
+    nrrd = preprocess_nrrd(NRRD)
 
     # step 2: segment the lung
     segmented_lung = segment_lung(nrrd) 
 
     # step 3: preprocessing the lung
-    extracted_lung = extract_lung(segmented_lung, nrrd)
+    preprocessed_lung = preprocess_lung(segmented_lung, nrrd)
 
     # step 4: load the lung health model
     model = lunghealth_load()
 
     # step 5: predict lung health from extracted lung using the loaded model
-    ai_lunghealth_score = lunghealth_predict(model, extracted_lung)
+    ai_lunghealth_score = lunghealth_predict(model, preprocessed_lung)
 
     # step 6: predict risk group based on lung health thresholds (1 to 5 -- very high, high, moderate, low, very low))
     risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)

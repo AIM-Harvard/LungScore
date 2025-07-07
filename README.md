@@ -12,30 +12,29 @@
 
 
 <h2>Run the model</h2>
-<p>To run the model on your dataset(s)</p>
+<p>To run Lung Health on you dataset</p>
 <p>The model works on axial (LD)CT chest scans.</p>
 
     # Step 1: Install all our dependencies:
     pip install AIlunghealth --pre
 
-    # Step 2: Run this in your code environment
-    from LungHealth.run import preprocess, extract_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory
-    from lungmask import mask
+    # Step 2: Import Lung health functions
+    from LungHealth.run import preprocess_nrrd, segment_lung, preprocess_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory
 
-    # step 3: preprocess nrrd and segment lung
-    nrrd = preprocess(nrrd_path)
-    lungmask = mask.apply(nrrd) 
+    # step 3: preprocess nrrd and segment the lung by passing nrrd_file_path --ex: nrrd_path="/mnt/data/123img.nrrd"
+    nrrd = preprocess_nrrd(nrrd_path)
+    lungmask = segment_lung(nrrd) 
 
-    # step 4: extract and preprocess lung 
-    extracted_lung = extract_lung(lungmask, nrrd)
+    # step 4: preprocess lung 
+    preprocessed_lung = preprocess_lung(lungmask, nrrd)
 
-    # step 5: load lunghealth model with weights
+    # step 5: load lunghealth model weights
     model = lunghealth_load()
 
-    # step 6: predict lung age from extracted lung using the loaded model
-    ai_lunghealth_score = lunghealth_predict(model, extracted_lung)
+    # step 6: predict lung health score (score from 0 t0 1 -- 1 is most healthy)
+    ai_lunghealth_score = lunghealth_predict(model, preprocessed_lung)
 
-    # step 7: predict risk group based on lung health thresholds (very low, low, moderate, high, very high)
+    # step 7: predict risk group based on lung health splits (very low, low, moderate, high, very high)
     risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)
 
 
