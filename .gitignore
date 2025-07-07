@@ -8,10 +8,14 @@ __pycache__/
 # ignore jupyter notebook checkpoints
 .ipynb_checkpoints/
 
+
 # ignore setup background
 lungage.egg-info/
 AI_LUNG_HEALTH.egg-info/
 AIlunghealth.egg-info/
+
+build/
+dist/
 
 # ignore model weights
 model_weights/
