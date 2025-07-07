@@ -16,7 +16,7 @@
 <p>The model works on axial (LD)CT chest scans.</p>
 
     # Step 1: Install all our dependencies:
-    pip install AI_lunghealth --pre
+    pip install AIlunghealth --pre
 
     # Step 2: Run this in your code environment
     from LungHealth.run import preprocess, extract_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory

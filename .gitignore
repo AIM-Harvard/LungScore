@@ -8,12 +8,9 @@ __pycache__/
 # ignore jupyter notebook checkpoints
 .ipynb_checkpoints/
 
-
 # ignore setup background
-lungage.egg-info/
 AI_LUNG_HEALTH.egg-info/
 AIlunghealth.egg-info/
-
 build/
 dist/
 
@@ -23,6 +20,7 @@ Modelweights_AILH
 
 # ignore figures
 figures/
+lung_cancer_data/
 
 # R plots
 Rplots.pdf
@@ -36,11 +34,9 @@ Rplots.pdf
 *.pth
 *.pt
 
-# ignore
-lung_cancer_data/
 
 # python files
 # dcm to nrrd
-lungage/preprocessing/dcm_to_nrrd_pipeline.py
-lungage/preprocessing/dcm_to_nrrds.py
+LungHealth/preprocessing/dcm_to_nrrd_pipeline.py
+LungHealth/preprocessing/dcm_to_nrrds.py
 config/dcm_to_nrrd_pipeline.yaml
