@@ -20,6 +20,10 @@ def AILunghealthscore(NRRD):
     Returns:
         ai_lunghealth_score --> 0 to 1 -- 1 is most healthy
     """
+
+    # if dicom then start with step 0 , if NRRD then start with step 1
+    # step 0: dicom to nrrd
+    # nrrd = dcm_to_nrrd(dcm_path)
     
     # step 1: read nrrd and resample
     nrrd = preprocess(NRRD)

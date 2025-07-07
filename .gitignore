@@ -11,9 +11,11 @@ __pycache__/
 # ignore setup background
 lungage.egg-info/
 AI_LUNG_HEALTH.egg-info/
+AIlunghealth.egg-info/
 
 # ignore model weights
 model_weights/
+Modelweights_AILH
 
 # ignore figures
 figures/
