@@ -21,36 +21,7 @@ class Test_set(Dataset):
         img = torch.tensor(img, dtype = torch.float32)
                  
         return img, scan
-    
-"""
-# csv only with image paths
-class Test_set(Dataset):
-    def __init__(self, path_dir_to_imgs, csv_file):
-        
-        Args:
-            csv_file (string): Path to the CSV file with image paths
-            path_dir_to_imgs(string): Directory with all the images
-        
-        self.data = pd.read_csv(csv_file)  # Load the CSV file
-        self.path_dir_to_imgs = path_dir_to_imgs     # Root directory for images
-
-        
-    def __len__(self):
-        # Return the number of samples in the dataset
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        # Retrieve image path and label from the CSV
-        img_path = os.path.join(self.path_dir_to_imgs, self.data.iloc[idx, 0])
-        scan_name = os.path.splitext(os.path.basename(image_path))[0]
-        
-        # read the image
-        image = np.load(img_path)
-        image = torch.tensor(image, dtype = torch.float32)
-
-        return image, scan_name
-    
-"""
+ 
 
 class Train_set(Dataset):
     def __init__(self, path_dir_to_imgs, csv_file):

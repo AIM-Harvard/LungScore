@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 
-#from .preprocessing import dcm_to_nrrd #step 00: DICOM to NRRD
+#from .preprocessing import dcm_to_nrrd #step 0: DICOM to NRRD
 from .preprocessing import preprocess_nrrd #step 1: preprocess NRRD, make sure of spacing , size, etc...
 from .preprocessing import segment_lung #step 2: segment lung from NRRD
 from .preprocessing import preprocess_lung # step 3: preprocess lung from segmented lung NRRD
@@ -13,12 +13,13 @@ from .utils import predict_lunghealth_riskcategory #step 6: predict risk group b
 def AILunghealthpredict(NRRD):
 
     """
-    Predict AI lung health score given the path for NRRD chest CT.
+    Predict AI lung health score and risk group given the path for NRRD chest CT.
 
     Args:
         folder_path (str): Path to the nrrd scan
     Returns:
-        ai_lunghealth_score --> 0 to 1 -- 1 is most healthy
+        ai_lunghealth_score (float): lung health score from 0 to 1 -- 1 is most healthy
+        risk group (str): lung health category -- very low (5), low (4), moderate (3), high (2), very high (1) 
     """
     
     # step 1: read nrrd and resample

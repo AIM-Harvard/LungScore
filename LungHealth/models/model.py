@@ -13,7 +13,7 @@ class Lunghealth(nn.Module):
         self.conv_layer4 = self._conv_layer_set234(64, 128)
         self.conv_layer5 = self._conv_layer_set5(128, 256) 
 
-        self.fc1 = nn.Linear(15360, 1024)    #15360 
+        self.fc1 = nn.Linear(15360, 1024)    
         self.fc2 = nn.Linear(1024, 128) 
         self.fc3 = nn.Linear(128, 2)    
  

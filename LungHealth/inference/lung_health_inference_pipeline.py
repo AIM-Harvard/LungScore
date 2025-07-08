@@ -43,7 +43,7 @@ with open(conf_file_path) as f:
 
 """
 You can only change testing "path_to_data_folder_testing" and "csv_path_to_save_lung_health_scores".
-Everything else should be kept the same.
+Everything else should be the same.
 """
 
 # input-output
@@ -88,8 +88,8 @@ def download_model_weights(model):
   if not (current_path / "model_weights.pth").exists():
     wget.download(model_weights_url, out=os.path.join(os.getcwd(), 'model_weights.pth'))
 
-    # Load the pretrained weights
-  model = nn.DataParallel(model, device_ids = [0, 2, 3])
+  # Load the pretrained weights
+  model = nn.DataParallel(model)
  
   model.load_state_dict(torch.load(current_path / "model_weights.pth", map_location=device))
     
@@ -116,8 +116,6 @@ def test(data_loader):
             
             # get a score between 0 to 1 , representing lung health
             pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 0] # 0 for the updated version of lung health , higher score --> better outcome  
-            
-            #scan_id_name = os.path.splitext(scan_id_name)[0]
             
             scans.append(scan_id_name)
             scores.append(pred)

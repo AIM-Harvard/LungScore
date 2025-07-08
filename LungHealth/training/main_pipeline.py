@@ -27,7 +27,7 @@ import monai
 import torchvision.models as models
 
 from LungHealth.datasets.dataset import Train_set, Tune_set
-from LungHealth.models.model import CNNModel
+from LungHealth.models.model import Lunghealth
 from LungHealth.training.training import train, tune
 
 ## ----------------------------------------
@@ -85,7 +85,7 @@ Aim = yaml_conf["wandb"]["Aim"]
 
 ##########################################
 # disturbed training 
-model = nn.DataParallel(CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max), device_ids = [0, 1, 2])
+model = nn.DataParallel(Lunghealth(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max))
 
 optimizer = torch.optim.Adam(model.parameters(), lr=training_learningrate)             
  
@@ -102,6 +102,8 @@ tune_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle
 
 # run core
 def main():
+  
+  
   Best_Tune_AUC = 0
   # wandb.config = dict( 
   #   epochs=num_epochs,
@@ -124,15 +126,18 @@ def main():
       t = time.time() 
       # wandb.watch(model, log='all')
      
-      train_loss, train_acc, train_labels, train_logits = train(model, data_loader, optimizer)
+      # training AUC and loss
+      train_loss, train_labels, train_logits = train(model, data_loader, optimizer)
       train_AUC =  roc_auc_score(train_labels, train_logits)   
 
-      tune_loss, tune_acc, tune_labels, tune_logits = tune(model, tune_data_loader)
+      # tuning AUC and loss
+      tune_loss, tune_labels, tune_logits = tune(model, tune_data_loader)
       tune_AUC =  roc_auc_score(tune_labels, tune_logits)     
 
-
+      # save the model weights at each epoch
       torch.save(model.state_dict(), model_weights_foldertosave_name+'weights_atepoch_'+str(epoch))
     
+      # save the best model based on AUC on tuning set   
       if tune_AUC > Best_Tune_AUC:  
         Best_Tune_AUC = tune_AUC
         torch.save(model.state_dict(), model_weights_foldertosave_name+'best_model_AUC_onTune_atepoch'+str(epoch))

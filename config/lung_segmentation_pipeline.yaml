@@ -1,6 +1,7 @@
+# input NRRD folder and lung segmentation output folder
 io:
-  NRRD_folder_path: '/mnt/data6/DeepPY/ai_lung_damage/data/test_FHS/'
-  lung_segmentation_folder_path: '/mnt/data6/DeepPY/ai_lung_damage/data/lung_seg_out/'
+  NRRD_folder_path: '/mnt/data/test/'
+  lung_segmentation_folder_path: '/mnt/data/lung_seg_out/'
 
 preprocessing:
   CUDA_VISIBLE_DEVICES: "1"
