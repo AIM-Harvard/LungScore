@@ -1,7 +1,6 @@
 import torch
 import torch.nn.functional as F
 
-#from .preprocessing import dcm_to_nrrd #step 0: DICOM to NRRD
 from .preprocessing import preprocess_nrrd #step 1: preprocess NRRD, make sure of spacing , size, etc...
 from .preprocessing import segment_lung #step 2: segment lung from NRRD
 from .preprocessing import preprocess_lung # step 3: preprocess lung from segmented lung NRRD

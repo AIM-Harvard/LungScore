@@ -72,8 +72,16 @@ os.environ['NUMEXPR_MAX_THREADS'] = NUMEXPR_MAX_THREADS
 
 
 def seg_lung(NRRD_folder_path):
-    
+    """
+    segment lungs given a nrrd folder path with chest CTs.
+
+    Args:
+        NRRD_folder_path: folder path containing the nrrd scans
+    Returns:
+        None: saves the segmented lung volumes in the specified folder
+    """      
     for scan_id in os.listdir(NRRD_folder_path):
+        
         begin_depth = []
         end_depth = []
         try:
