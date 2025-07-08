@@ -37,7 +37,6 @@
     # step 7: predict risk group based on lung health splits (very low, low, moderate, high, very high)
     risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)
 
-
     # you can combine all in one step by:
     from LungHealth.run import AILunghealthpredict
     ai_lunghealth_score, risk_group = AILunghealthpredict(nrrd_path)
@@ -45,6 +44,4 @@
 
 </body>
 </html>
-
-
 

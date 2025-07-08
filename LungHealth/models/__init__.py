@@ -44,10 +44,10 @@ def lunghealth_predict(model, extracted_lung, device = "cuda" if torch.cuda.is_a
     """
     Predict AI lung health score given the segmented lung
     Args:
-        model: lung health model to 
+        model: lung health model loaded in eval mode
         extracted lung: segmented lung from NRRD Scan 
     Returns:
-        ai_lunghealth_score (float): lung health score between 0 to 1 -- 1: most healthy lung
+        ai_lunghealth_score (float): lung health score between 0 to 1 -- 1: healthiest lung
     """
     ai_lunghealth_score = F.softmax(model(extracted_lung.to(torch.float32).to(device).unsqueeze(0).unsqueeze(0)).cpu().detach(), dim=1).numpy()[:, 0] # higher score means healthier lung therefore better outcome 
 
