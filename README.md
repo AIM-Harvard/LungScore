@@ -31,7 +31,7 @@
     # step 5: load lunghealth model weights
     model = lunghealth_load()
 
-    # step 6: predict lung health score (score from 0 t0 1 -- 1 is most healthy)
+    # step 6: predict lung health score (score from 0 t0 1 -- 1 is healthiest lung)
     ai_lunghealth_score = lunghealth_predict(model, preprocessed_lung)
 
     # step 7: predict risk group based on lung health splits (very low, low, moderate, high, very high)
