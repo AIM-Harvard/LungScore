@@ -8,7 +8,7 @@
 
 <h1><b>Lung Health Score</b></h1>
 <p>Automated Lung Health Score Quantification.</p>
-<img src="figures/Overview_LungScore.png" alt="Lung Health Score Pipeline" width="800" height="500"> 
+<img src="figures/overview_figure_1_lung_score.jpg" alt="Lung Health Score Pipeline" width="800" height="500"> 
 
 
 <h2>Run the model</h2>
