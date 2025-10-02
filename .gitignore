@@ -19,7 +19,7 @@ model_weights/
 Modelweights_AILH
 
 # ignore figures
-figures/
+
 lung_cancer_data/
 
 # R plots
