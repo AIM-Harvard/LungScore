@@ -32,10 +32,10 @@
     model = lungscore_load()
 
     # step 6: predict Lung Score (score from 0 t0 1 -- 1 is least impaired lung)
-    ai_lunghealth_score = lungscore_predict(model, preprocessed_lung)
+    ai_lung_score = lungscore_predict(model, preprocessed_lung)
 
     # step 7: predict risk group based on Lung Score splits (very low, low, moderate, high, very high)
-    risk_group = predict_lungscore_riskcategory(ai_lunghealth_score)
+    risk_group = predict_lungscore_riskcategory(ai_lung_score)
 
     # you can combine all in one step by:
     from LungScore.run import AILungscorepredict
