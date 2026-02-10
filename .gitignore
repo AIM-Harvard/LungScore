@@ -41,5 +41,3 @@ LungScore/preprocessing/dcm_to_nrrd_pipeline.py
 LungScore/preprocessing/dcm_to_nrrds.py
 config/dcm_to_nrrd_pipeline.yaml
 
-stats_analysis/saliencymaps.py
-tdev_ids.py
