@@ -41,5 +41,5 @@ LungHealth/preprocessing/dcm_to_nrrd_pipeline.py
 LungHealth/preprocessing/dcm_to_nrrds.py
 config/dcm_to_nrrd_pipeline.yaml
 
-LungHealth/stats_analysis/saliencymaps.py
-LungHealth/tdev_ids.py
+stats_analysis/saliencymaps.py
+tdev_ids.py
