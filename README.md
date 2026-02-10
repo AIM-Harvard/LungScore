@@ -28,17 +28,17 @@
     # step 4: preprocess lung 
     preprocessed_lung = preprocess_lung(lungmask, nrrd)
 
-    # step 5: load lunghealth model weights
+    # step 5: load Lung Score model weights
     model = lunghealth_load()
 
-    # step 6: predict lung health score (score from 0 t0 1 -- 1 is healthiest lung)
+    # step 6: predict Lung Score (score from 0 t0 1 -- 1 is least impaired lung)
     ai_lunghealth_score = lunghealth_predict(model, preprocessed_lung)
 
-    # step 7: predict risk group based on lung health score splits (very low, low, moderate, high, very high)
+    # step 7: predict risk group based on Lung Score splits (very low, low, moderate, high, very high)
     risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)
 
     # you can combine all in one step by:
-    from LungHealth.run import AILunghealthpredict
+    from LungScore.run import AILunghealthpredict
     ai_lunghealth_score, risk_group = AILunghealthpredict(nrrd_path)
 
 

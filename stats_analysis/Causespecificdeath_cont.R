@@ -1,8 +1,8 @@
 """
-Deep-learning biomarker for Lung Health stats_analysis - cause specific diseases death COX analysis (using continous score)
+AI-derived Lung Score stats_analysis - cause specific diseases death COX analysis (using continous score)
 
 # The code and data of this repository are intended to promote transparent and reproducible research
-# of the paper -- Deep Learning-based Lung Health Quantification on Computed Tomography in Adults
+# of the paper -- AI–based Radiographic Lung Score Associates with Clinical Outcomes in Adults: a model development and validation study
 
 # THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
 # NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND

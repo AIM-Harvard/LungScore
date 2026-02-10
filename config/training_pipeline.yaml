@@ -1,14 +1,14 @@
 io:
   # root path to data
-  path_to_data_folder_training: '/mnt/lunghealth/data/train/'
-  path_to_data_folder_tuning: '/mnt/lunghealth/data/tune/'
+  path_to_data_folder_training: '/mnt/lungscore/data/train/'
+  path_to_data_folder_tuning: '/mnt/lungscore/data/tune/'
 
   # csv with data file name and label
-  path_to_csv_training: '/mnt/lunghealth/labels/train_dataset.csv'
-  path_to_csv_tuning: '/mnt/lunghealth/labels/tune_dataset.csv'
+  path_to_csv_training: '/mnt/lungscore/labels/train_dataset.csv'
+  path_to_csv_tuning: '/mnt/lungscore/labels/tune_dataset.csv'
   
   # subdir under which the network weights should be saved
-  model_weights_foldertosave_name: '/mnt/lunghealth/model_weights/'
+  model_weights_foldertosave_name: '/mnt/lungscore/model_weights/'
 
 
  # hyperparameters used during the training of AI Lung Health
@@ -40,5 +40,5 @@ wandb:
 
   normalization_values: [-1024,1566]
 
-  Aim: 'DL based biomarker for lung health'
+  Aim: 'AI-derived Lung Score'
 
