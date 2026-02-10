@@ -52,10 +52,10 @@ def lunghealth_predict(model, extracted_lung, device = "cuda" if torch.cuda.is_a
     #ai_lunghealth_score = F.softmax(model(extracted_lung.to(torch.float32).to(device).unsqueeze(0).unsqueeze(0)).cpu().detach(), dim=1).numpy()[:, 0] # higher score means healthier lung therefore better outcome 
 
 
-    print(extracted_lung)
+
     extracted_lung.requires_grad_(True)
 
-    ai_lunghealth_score = model(extracted_lung)  # shape: [1, num_classes]
+    ai_lunghealth_score = model(extracted_lung)[:,0]  # shape: [1, num_classes]
     
     return ai_lunghealth_score
 

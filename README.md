@@ -6,13 +6,13 @@
 </head>
 <body>
 
-<h1><b>Lung Health Score</b></h1>
-<p>Automated Lung Health Score Quantification.</p>
-<img src="figures/Overview_LungScore.jpg" alt="Lung Health Score Pipeline" width="800" height="500"> 
+<h1><b>Lung Score</b></h1>
+<p>Automated Lung Score Quantification.</p>
+<img src="figures/Overview_LungScore.jpg" alt="Lung Score Pipeline" width="800" height="500"> 
 
 
 <h2>Run the model</h2>
-<p>To run Lung Health Score on you dataset</p>
+<p>To run Lung Score on you dataset</p>
 <p>The model works on axial (LD)CT chest scans.</p>
 
     # Step 1: Install all our dependencies:
