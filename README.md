@@ -16,10 +16,10 @@
 <p>The model works on axial (LD)CT chest scans.</p>
 
     # Step 1: Install all our dependencies:
-    pip install AIlungscore --pre
+    pip install LungScore --pre
 
     # Step 2: Import Lung score functions
-    from LungScore.run import preprocess_nrrd, segment_lung, preprocess_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory
+    from LungScore.run import preprocess_nrrd, segment_lung, preprocess_lung, lungscore_load, lungscore_predict, predict_lungscore_riskcategory
 
     # step 3: preprocess nrrd and segment the lung by passing nrrd_file_path --ex: nrrd_path="/mnt/data/123img.nrrd"
     nrrd = preprocess_nrrd(nrrd_path)
@@ -29,17 +29,17 @@
     preprocessed_lung = preprocess_lung(lungmask, nrrd)
 
     # step 5: load Lung Score model weights
-    model = lunghealth_load()
+    model = lungscore_load()
 
     # step 6: predict Lung Score (score from 0 t0 1 -- 1 is least impaired lung)
-    ai_lunghealth_score = lunghealth_predict(model, preprocessed_lung)
+    ai_lunghealth_score = lungscore_predict(model, preprocessed_lung)
 
     # step 7: predict risk group based on Lung Score splits (very low, low, moderate, high, very high)
-    risk_group = predict_lunghealth_riskcategory(ai_lunghealth_score)
+    risk_group = predict_lungscore_riskcategory(ai_lunghealth_score)
 
     # you can combine all in one step by:
-    from LungScore.run import AILunghealthpredict
-    ai_lunghealth_score, risk_group = AILunghealthpredict(nrrd_path)
+    from LungScore.run import AILungscorepredict
+    ai_lung_score, risk_group = AILungscorepredict(nrrd_path)
 
 
 </body>

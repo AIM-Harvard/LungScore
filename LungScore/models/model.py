@@ -2,10 +2,10 @@ import torch
 import os
 import torch.nn as nn
 
-# AI_LUNG_HEALTH Model
-class Lunghealth(nn.Module): 
+# AI_LUNG_SCORE Model
+class Lungscore(nn.Module): 
     def __init__(self): 
-        super(Lunghealth, self).__init__()  
+        super(Lungscore, self).__init__()  
  
         self.conv_layer1 = self._conv_layer_set1(1, 16) 
         self.conv_layer2 = self._conv_layer_set234(16, 32) 
