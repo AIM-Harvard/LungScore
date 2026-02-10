@@ -1,5 +1,5 @@
 """
-  Deep-learning biomarker for Lung Health testing pipeline
+AI-derived Lung Score inference pipeline
 """
 from pathlib import Path
 import wget

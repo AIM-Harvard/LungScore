@@ -1,5 +1,5 @@
 """
-  Deep-learning biomarker for Lung Health Lung segmentation
+AI-derived Lung Score
 """
 import yaml
 import argparse

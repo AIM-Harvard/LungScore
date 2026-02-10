@@ -1,5 +1,5 @@
 """
-  Deep-learning biomarker for Lung Health - resampling and resizing NRRD scan
+AI-derived Lung Score - resampling and resizing NRRD scan
 """
 
 import os
