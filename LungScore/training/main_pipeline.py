@@ -26,9 +26,9 @@ import pandas as pd
 import monai
 import torchvision.models as models
 
-from LungHealth.datasets.dataset import Train_set, Tune_set
-from LungHealth.models.model import Lunghealth
-from LungHealth.training.training import train, tune
+from LungScore.datasets.dataset import Train_set, Tune_set
+from LungScore.models.model import Lunghealth
+from LungScore.training.training import train, tune
 
 ## ----------------------------------------
 # path to config file

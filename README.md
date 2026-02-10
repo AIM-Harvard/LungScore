@@ -19,7 +19,7 @@
     pip install AIlunghealth --pre
 
     # Step 2: Import Lung health score functions
-    from LungHealth.run import preprocess_nrrd, segment_lung, preprocess_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory
+    from LungScore.run import preprocess_nrrd, segment_lung, preprocess_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory
 
     # step 3: preprocess nrrd and segment the lung by passing nrrd_file_path --ex: nrrd_path="/mnt/data/123img.nrrd"
     nrrd = preprocess_nrrd(nrrd_path)

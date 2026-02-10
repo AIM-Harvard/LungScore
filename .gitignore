@@ -37,8 +37,8 @@ Rplots.pdf
 
 # python files
 # dcm to nrrd
-LungHealth/preprocessing/dcm_to_nrrd_pipeline.py
-LungHealth/preprocessing/dcm_to_nrrds.py
+LungScore/preprocessing/dcm_to_nrrd_pipeline.py
+LungScore/preprocessing/dcm_to_nrrds.py
 config/dcm_to_nrrd_pipeline.yaml
 
 stats_analysis/saliencymaps.py

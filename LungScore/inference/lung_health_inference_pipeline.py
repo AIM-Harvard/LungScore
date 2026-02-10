@@ -14,8 +14,8 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.nn.functional as F
 
-from LungHealth.datasets.dataset import Test_set
-from LungHealth.models.model import CNNModel
+from LungScore.datasets.dataset import Test_set
+from LungScore.models.model import CNNModel
 
 ## ----------------------------------------
 script_dir = os.path.dirname(os.path.abspath(__file__))

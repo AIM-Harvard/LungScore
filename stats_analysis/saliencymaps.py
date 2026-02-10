@@ -1,4 +1,4 @@
-from LungHealth.run import lunghealth_load, lunghealth_predict
+from LungScore.run import lunghealth_load, lunghealth_predict
 import torch
 import numpy as np
 import SimpleITK as sitk
