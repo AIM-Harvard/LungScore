@@ -9,8 +9,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # ignore setup background
-AI_LUNG_HEALTH.egg-info/
-AIlunghealth.egg-info/
+AIlungscore.egg-info/
 build/
 dist/
 

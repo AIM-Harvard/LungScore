@@ -16,9 +16,9 @@
 <p>The model works on axial (LD)CT chest scans.</p>
 
     # Step 1: Install all our dependencies:
-    pip install AIlunghealth --pre
+    pip install AIlungscore --pre
 
-    # Step 2: Import Lung health score functions
+    # Step 2: Import Lung score functions
     from LungScore.run import preprocess_nrrd, segment_lung, preprocess_lung, lunghealth_load, lunghealth_predict, predict_lunghealth_riskcategory
 
     # step 3: preprocess nrrd and segment the lung by passing nrrd_file_path --ex: nrrd_path="/mnt/data/123img.nrrd"
