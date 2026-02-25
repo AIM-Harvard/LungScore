@@ -38,4 +38,5 @@ Rplots.pdf
 LungScore/preprocessing/dcm_to_nrrd_pipeline.py
 LungScore/preprocessing/dcm_to_nrrds.py
 config/dcm_to_nrrd_pipeline.yaml
+LungScore/lung_cancer_data/
 
