@@ -1,5 +1,5 @@
 """
-  Deep-learning biomarker for Lung Health training pipeline
+AI-derived Lung Score training pipeline
 """
 
 import os
