@@ -19,7 +19,6 @@ Modelweights_AILH
 
 # ignore figures
 figures/
-lung_cancer_data/
 
 # R plots
 Rplots.pdf
