@@ -1,5 +1,5 @@
 """
-  Deep-learning biomarker for Lung Health utils - calculate lung volume - check corrupted/outofrange values - clipping pixel values
+AI-derived Lung Score - calculate lung volume - check corrupted/outofrange values - clipping pixel values
 """
 import numpy as np
 import torch
