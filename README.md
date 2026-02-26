@@ -13,6 +13,42 @@
 
 <h2>Repository Structure</h2>
 <p>This repository is structured as follows:</p>
+<ul>
+  <li>
+    <strong>📂 LungScore/</strong>
+    <p>The core Python package containing the implementation logic:</p>
+    <ul>
+      <li><strong>📂 datasets:</strong> Custom data loaders and dataset classes for handling CT volumes.</li>
+      <li><strong>📂 preprocessing:</strong> Scripts for image standardization, resampling, and NRRD conversion.</li>
+      <li><strong>📂 models:</strong> The 3D CNN architecture and model definitions.</li>
+      <li><strong>📂 training:</strong> Logic for supervised learning, loss functions, and optimization.</li>
+      <li><strong>📂 inference:</strong> Scripts to apply the trained model to new scans and generate Lung Scores.</li>
+      <li><strong>📂 utils:</strong> Helper functions for logging, file handling, and general utilities.</li>
+      <li><strong>📜 run.py:</strong> The main entry point to execute the pipeline.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>📂 stats_analysis/</strong>
+    <p>Contains R scripts and notebooks used to evaluate the association between the LungScore and clinical outcomes (e.g., mortality and cardiovascular events).</p>
+  </li>
+
+  <li>
+    <strong>📂 config/</strong>
+    <p>Contains <code>.yaml</code> files that define all hyperparameters and paths, ensuring the entire LungScore pipeline is fully reproducible.</p>
+  </li>
+
+  <li>
+    <strong>📂 figures/</strong>
+    <p>Documentation assets, including the study flowchart and model architecture diagrams.</p>
+  </li>
+
+  <li>
+    <strong>📜 requirements.txt</strong>
+    <p>The list of required Python dependencies (e.g., SimpleITK, lungmask, torch).</p>
+  </li>
+</ul>
+
 
 <h2>Environment Setup</h2>
 <p></p>
@@ -61,7 +97,7 @@
   The <strong>LungScore</strong> is a deep learning–derived biomarker designed to quantify structural lung integrity from chest CT scans. Lung Score pipeline consists of two stages:
 </p>
 <ol>
-  <li><strong>Lung Segmentation:</strong> Automated delineation of the pulmonary parenchyma using the <a href="https://github.com/JoHof/lungmask">Lungmask</a> framework.</li>
+  <li><strong>Lung Segmentation:</strong> Automated delineation of the pulmonary parenchyma using the <a href="https://github.com/JoHof/lungmask">Lungmask</a>.</li>
   <li><strong>Lung Score Quantification:</strong> The segmented 3D lung volume is input into a 3D Convolutional Neural Network (3D CNN). The model processes the entire pulmonary structure to output a continuous score (0 to 1), providing a global measure of lung integrity with lower values corresponding to relatively more impaired lung structure.</li>
 </ol>
 <details>
@@ -106,7 +142,7 @@
   <li><strong>Very High:</strong> ≥75th percentile</li>
 </ul>
 
-<h3>Statistical Analysis</h3>
+<h2>Statistical Analysis</h2>
 <p>
   All statistical modeling was performed using <strong>R version 4.2.2</strong>. The association between the LungScore and clinical outcomes was assessed through:
 </p>
