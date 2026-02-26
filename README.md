@@ -51,8 +51,6 @@
 <h2>Replicating Lung Score Pipeline</h2>
 <h3>Training Pipeline</h3>
 <p></p>
-<img src="figures/LungScore_pipeline.jpg" alt="Lung Score Pipeline" width="550" height="500"> 
-
 
 <h3>Inference Pipeline</h3>
 <p></p>
@@ -60,6 +58,9 @@
 <h2>Lung Score Model</h2>
 <h3>Model training and Network Architecture</h3>
 <p></p>
+<img src="figures/LungScore_pipeline.jpg" alt="Lung Score Pipeline" width="550" height="500"> 
+
+
 
 <h3>Model Validation</h3>
 <p></p>
@@ -68,7 +69,13 @@
 <p></p>
 
 <h2>Datasets</h2>
-<p></p>
+<p>
+  The LungScore was trained on the <strong>National Lung Screening Trial (NLST)</strong> and tested on a held-out test set from NLST and an external dataset from the <strong>Framingham Heart Study (FHS)</strong>. These datasets can be requested through official repositories as follows:
+</p>
+<ul>
+  <li><strong>National Lung Screening Trial (NLST):</strong><a href="https://biometry.nci.nih.gov/cdas/nlst/">NCI CDAS</a>.</li>
+  <li><strong>Framingham Heart Study (FHS):</strong><a href="https://biolincc.nhlbi.nih.gov/">BioLINCC</a>.</li>
+</ul>
 
 
 <h2>Disclaimer</h2>
