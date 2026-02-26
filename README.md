@@ -16,7 +16,7 @@
 <p>This repository is structured as follows:</p>
 
 
-<h3>Run the model</h3>
+<h2>Run the model</h2>
 <p>To run Lung Score on you dataset</p>
 <p>The model works on axial (LD)CT chest scans.</p>
 
@@ -48,6 +48,7 @@
 
 
 <h4>Disclaimer</h4>
+<h2>Repository Structure</h2>
 <p>The code and data of this repository are provided to promote reproducible research. They are not intended for clinical care or commercial use.</p>
 <p>The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
 
