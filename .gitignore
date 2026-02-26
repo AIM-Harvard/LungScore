@@ -17,9 +17,6 @@ dist/
 model_weights/
 Modelweights_AILH
 
-# ignore figures
-figures/
-
 # R plots
 Rplots.pdf
 
