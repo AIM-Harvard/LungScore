@@ -6,12 +6,17 @@
 </head>
 <body>
 
-<h1><b>Lung Score</b></h1>
+<h1><b>AI-based Radiographic Lung Score Associates with Clinical Outcomes in Adults</b></h1>
+<p>This repository contains the code and the evaluation of the LungScore (an AI-based Radiographric Score of your Lung Integrity).</p>
 <p>Automated Lung Score Quantification.</p>
 <img src="figures/Overview_LungScore.jpg" alt="Lung Score Pipeline" width="800" height="500"> 
 
 
-<h2>Run the model</h2>
+<h2>Repository Structure</h2>
+<p>This repository is structured as follows:</p>
+
+
+<h3>Run the model</h3>
 <p>To run Lung Score on you dataset</p>
 <p>The model works on axial (LD)CT chest scans.</p>
 
@@ -42,7 +47,7 @@
     ai_lung_score, risk_group = AILungscorepredict(nrrd_path)
 
 
-<h3>Disclaimer</h3>
+<h4>Disclaimer</h4>
 <p>The code and data of this repository are provided to promote reproducible research. They are not intended for clinical care or commercial use.</p>
 <p>The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
 
