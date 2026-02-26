@@ -51,7 +51,7 @@
 <h2>Replicating Lung Score Pipeline</h2>
 <h3>Training Pipeline</h3>
 <p></p>
-<img src="figures/LungScore_pipeline.jpg" alt="Lung Score Pipeline" width="800" height="500"> 
+<img src="figures/LungScore_pipeline.jpg" alt="Lung Score Pipeline" width="550" height="500"> 
 
 
 <h3>Inference Pipeline</h3>
