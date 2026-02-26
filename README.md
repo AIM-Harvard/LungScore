@@ -13,17 +13,17 @@
 
 <h2>Repository Structure</h2>
 <p>This repository is structured as follows:</p>
-<ul>
+
   <li>
-    <strong>📂 LungScore/</strong>
+    <strong>📂 LungScore</strong>
     <p>Folder stores the code used to train and test the pipeline.</p>
-    <ul>
+
   <li>
-    <strong>📂 stats_analysis/</strong>
+    <strong>📂 stats_analysis</strong>
     <p>Contains R scripts used to evaluate the association between the LungScore and clinical outcomes, and to export the plots in the Manuscript.</p>
   </li>
   <li>
-    <strong>📂 config/</strong>
+    <strong>📂 config</strong>
     <p>Contains <code>.yaml</code> Files that define all hyperparameters and paths, to reproduce the entire LungScore pipeline.</p>
   </li>
 
