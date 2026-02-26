@@ -24,14 +24,10 @@
   </li>
   <li>
     <strong>📂 config</strong>
-    <p>Contains <code>.yaml</code> Files that define all hyperparameters and paths, to reproduce the entire LungScore pipeline.</p>
+    <p>Contains <code>.yaml</code> files that define all hyperparameters and paths, to reproduce the entire LungScore pipeline.</p>
   </li>
 
 </ul>
-
-
-<h2>Environment Setup</h2>
-<p></p>
 
 <h2>Run the model</h2>
 <p>To run Lung Score on you dataset</p>
@@ -64,6 +60,9 @@
     ai_lung_score, risk_group = AILungscorepredict(nrrd_path)
 
 
+<h2>Environment Setup</h2>
+<p></p>
+
 <h2>Replicating Lung Score Pipeline</h2>
 <h3>Training Pipeline</h3>
 <p></p>
@@ -87,10 +86,14 @@
   </p>
   <p>
     <strong>Hypothesis:</strong>
-    The training cohort utilized participants at opposite ends of lung structural health (highest quartile of smoking exposure versus lowest quartile of smoking exposure with no CT chronic findings). Crucially, <strong>both groups consisted of smokers</strong>; this was intended to encourage the model to identify imaging-derived structural features rather than simply learning to distinguish smoking status, thereby <strong>potentially reducing confounding</strong> by smoking history.
+    The training cohort utilized participants at opposite ends of lung structural health (highest quartile of smoking exposure versus lowest quartile of smoking exposure with no CT chronic findings). Crucially, both groups consisted of smokers; this was intended to encourage the model to identify imaging-derived structural features rather than simply learning to distinguish smoking status, thereby potentially reducing confounding by smoking history.
   </p>
   <p>
-    By capturing these shared morphological signatures, the model <strong>potentially</strong> identifies a continuous gradient of lung integrity that may maintain its prognostic relevance across diverse clinical profiles—including individuals with varying smoking histories, non-smokers, and those both with and without overt lung disease.
+    <strong>Implementation Details:</strong>
+    The 3D CNN was trained using a cross-entropy loss function with a batch size of 16 scans and a learning rate of 0.001. Training proceeded until the model checkpoint with the highest Area Under the Curve (AUC) on the tuning cohort was achieved.
+  </p>
+  <p>
+    By capturing these shared morphological signatures, the model potentially identifies a continuous gradient of lung integrity that may maintain its prognostic relevance across diverse clinical profiles—including individuals with varying smoking histories, non-smokers, and those both with and without overt lung disease.
   </p>
 </details>
 <img src="figures/LungScore_pipeline.jpg" alt="Lung Score Pipeline" width="550" height="500"> 
@@ -128,7 +131,7 @@
 </p>
 <ul>
   <li><strong>Survival Analysis:</strong> Kaplan–Meier estimates and log-rank tests were used for univariate comparisons.</li>
-  <li><strong>Risk Modeling:</strong> Multivariable Cox proportional hazards models, adjusted for age, sex, BMI, smoking history (pack-years), and pre-existing comorbidities.</li>
+  <li><strong>Risk Modeling:</strong> Multivariable Cox proportional hazards models, adjusted for age, sex, BMI, smoking status, pack-years, and pre-existing comorbidities.</li>
   <li><strong>Proportional Hazards:</strong> Assumptions were verified using Schoenfeld residuals, with age- and sex-stratified models implemented to address non-proportionality.</li>
   <li><strong>Independence Testing:</strong> Multicollinearity was ruled out using Variance Inflation Factors (VIF < 5) and partial correlation analyses.</li>
 </ul>
