@@ -19,7 +19,7 @@
 
 <h2>Run the model</h2>
 <p>To run Lung Score on you dataset</p>
-<p>The model works on axial (LD)CT chest scans.</p>
+<p>The model works on axial chest (LD)CT scans.</p>
 
     # Step 1: Install all our dependencies:
     pip install LungScore --pre
