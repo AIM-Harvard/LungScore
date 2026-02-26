@@ -7,8 +7,8 @@
 <body>
 
 <h1><b>AI-based Radiographic Lung Score Associates with Clinical Outcomes in Adults</b></h1>
-<p>Repository for "LungScore": An AI-based Radiographric Score of Lung Integrity.</p>
-<img src="figures/Overview_LungScore.jpg" alt="Lung Score Pipeline" width="800" height="500"> 
+<p>Repository for "LungScore": An AI-based Radiographric Score of Lung Integrity applicable to adults including non-smokers and those without overt disease.</p>
+<img src="figures/Overview_LungScore.jpg" alt="Lung Score Overview" width="800" height="500"> 
 
 
 <h2>Repository Structure</h2>
@@ -51,6 +51,8 @@
 <h2>Replicating Lung Score Pipeline</h2>
 <h3>Training Pipeline</h3>
 <p></p>
+<img src="figures/LungScore_pipeline.png" alt="Lung Score Pipeline" width="800" height="500"> 
+
 
 <h3>Inference Pipeline</h3>
 <p></p>
