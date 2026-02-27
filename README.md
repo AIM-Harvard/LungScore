@@ -152,7 +152,7 @@
 
 <h3>Data Split and Cohort Selection</h3>
 <ul>
-  <li><strong>Development Set (NLST, n = 4,228)
+  <li><strong>Development Set (NLST, n = 4,228)</strong>
     <ul>
       <li><em>Group 1 (More Impaired Lung):</em> Highest quartile of smoking exposure (>66 pack-years).</li>
       <li><em>Group 2 (Less Impaired Lung):</em> Lowest quartile of smoking exposure (&lt;42 pack-years) with no chronic CT findings.</li>
