@@ -63,52 +63,6 @@
 <h2>Environment Setup</h2>
 <p></p>
 
-<h2>Replicating Lung Score Pipeline</h2>
-<p>
-The LungScore pipeline utilizes YAML configuration files to manage parameters and file paths. Each step requires a specific <code>.yaml</code> file to define hyperparameters and directory paths.
-</p>
-
-<h3>Step 1: Lung Segmentation</h3>
-<p>
-To generate the necessary input for training or inference, the lungs must first be delineated from the 3D CT volumes. Update path to point to your directory of resampled chest CTs (NRRD format) in the <code>lung_segmentation_pipeline.yaml</code>.
-</p>
-<ul>
-<li><strong>Config:</strong> <code>config/lung_segmentation_pipeline.yaml</code></li>
-<li><strong>Action:</strong> Extracts the pulmonary parenchyma.</li>
-</ul>
-<pre><code># Run lung extraction
-python LungScore/preprocessing/extract_lung_pipeline.py 
-</code></pre>
-
-<hr>
-
-<h3>Step 2: Model Training</h3>
-<p>
-To reproduce the model development, use the <code>training_pipeline.yaml</code>. This file contains hyperparameters used to develop LungScore.
-</p>
-<ul>
-<li><strong>Config:</strong> <code>config/training_pipeline.yaml</code></li>
-<li><strong>Action:</strong> Trains the 3D CNN on the segmented lungs.</li>
-</ul>
-<pre><code># Run model training
-python LungScore/training/training_pipeline.py 
-</code></pre>
-
-<hr>
-
-<h3>Step 3: Model Inference</h3>
-<p>
-Once the model is trained, use the <code>testing_pipeline.yaml</code> to apply the trained model weights to new scans. This script outputs a continuous score (0-1) reflecting the structural integrity of the segmented lung.
-</p>
-<ul>
-<li><strong>Config:</strong> <code>config/testing_pipeline.yaml</code></li>
-<li><strong>Action:</strong> Generates individual LungScore.</li>
-</ul>
-<pre><code># Run inference pipeline
-python LungScore/inference/inference_pipeline.py 
-</code></pre>
-
-
 
 <h2>Lung Score Model</h2>
 <h3>Model Development</h3>
@@ -208,6 +162,52 @@ python LungScore/inference/inference_pipeline.py
   <li><strong>Internal Test Set (NLST, n = 15,733):</strong> A held-out portion (65% of the total cohort) reserved for independent validation.</li>
   <li><strong>External Validation (FHS, n = 2,581):</strong> An independent cohort used exclusively to evaluate model generalizability.</li>
 </ul>
+
+
+<h2>Replicating Lung Score Pipeline</h2>
+<p>
+The LungScore pipeline utilizes YAML configuration files to manage parameters and file paths. Each step requires a specific <code>.yaml</code> file to define hyperparameters and directory paths.
+</p>
+
+<h3>Step 1: Lung Segmentation</h3>
+<p>
+To generate the necessary input for training or inference, the lungs must first be delineated from the 3D CT volumes. Update path to point to your directory of resampled chest CTs (NRRD format) in the <code>lung_segmentation_pipeline.yaml</code>.
+</p>
+<ul>
+<li><strong>Config:</strong> <code>config/lung_segmentation_pipeline.yaml</code></li>
+<li><strong>Action:</strong> Extracts the pulmonary parenchyma.</li>
+</ul>
+<pre><code># Run lung extraction
+python LungScore/preprocessing/extract_lung_pipeline.py 
+</code></pre>
+
+<hr>
+
+<h3>Step 2: Model Training</h3>
+<p>
+To reproduce the model development, use the <code>training_pipeline.yaml</code>. This file contains hyperparameters used to develop LungScore.
+</p>
+<ul>
+<li><strong>Config:</strong> <code>config/training_pipeline.yaml</code></li>
+<li><strong>Action:</strong> Trains the 3D CNN on the segmented lungs.</li>
+</ul>
+<pre><code># Run model training
+python LungScore/training/training_pipeline.py 
+</code></pre>
+
+<hr>
+
+<h3>Step 3: Model Inference</h3>
+<p>
+Once the model is trained, use the <code>testing_pipeline.yaml</code> to apply the trained model weights to new scans. This script outputs a continuous score (0-1) reflecting the structural integrity of the segmented lung.
+</p>
+<ul>
+<li><strong>Config:</strong> <code>config/testing_pipeline.yaml</code></li>
+<li><strong>Action:</strong> Generates individual LungScore.</li>
+</ul>
+<pre><code># Run inference pipeline
+python LungScore/inference/inference_pipeline.py 
+</code></pre>
 
 
 <h2>Disclaimer</h2>
