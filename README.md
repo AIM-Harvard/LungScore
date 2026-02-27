@@ -61,7 +61,34 @@
 
 
 <h2>Environment Setup</h2>
-<p></p>
+<p>
+  This project was developed using Python 3.9. To ensure a stable and reproducible environment, we recommend using Conda to manage your virtual workspace and dependencies.
+</p>
+
+<h3>1. Install Conda</h3>
+<p>
+  If you do not have Conda installed, please follow the official installation guide for your operating system: 
+  <a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html">Conda Installation Guide</a>.
+</p>
+
+<h3>2. Create and Activate the Environment</h3>
+<p>
+  Run the following commands in your terminal to set up an isolated environment:
+</p>
+<pre><code># Create a new environment named 'lungscore_env' with Python 3.9
+conda create -n lungscore_env python=3.9 -y
+
+# Activate the environment
+conda activate lungscore_env
+</code></pre>
+
+<h3>3. Install LungScore</h3>
+<p>
+  Once your environment is active, install the LungScore package and its pre-requisite dependencies using the following command:
+</p>
+<pre><code># Install the latest pre-release version of LungScore
+pip install LungScore --pre
+</code></pre>
 
 
 <h2>Lung Score Model</h2>
@@ -104,7 +131,7 @@
 </ul>
 <p>
   <strong>Outcome Association:</strong>
-  To assess the score's prognostic relevance, we analyzed its association with <strong>all-cause mortality</strong>, as well as lung cancer incidence and cardiovascular-specific mortality. 
+  To assess the score's prognostic relevance, we analyzed its association with all-cause mortality, as well as lung cancer and cardiovascular incidence and cause-specific mortality. 
 </p>
 
 <p>
@@ -159,7 +186,7 @@
     </ul>
     This subset was split 70:30 into training and tuning sets.
   </li>
-  <li><strong>Internal Test Set (NLST, n = 15,733):</strong> A held-out portion (65% of the total cohort) reserved for independent validation.</li>
+  <li><strong>Internal Test Set (NLST, n = 15,733):</strong> A held-out portion reserved for independent validation.</li>
   <li><strong>External Validation (FHS, n = 2,581):</strong> An independent cohort used exclusively to evaluate model generalizability.</li>
 </ul>
 
