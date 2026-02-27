@@ -10,7 +10,7 @@ io:
   device_cuda: 'cuda:0'
 
 
- # hyperparameters used during the training of AI Lung Health / Dont change during testing
+ # hyperparameters used during the training of AI Lung score / Dont change during testing
 
 training:
     
