@@ -118,7 +118,7 @@ def main():
   #   normalizevalues = normalization_values, 
   #   Aim=Aim)    
      
-  # wandb.init(project="AI_lung_health_q1nofindings_collate_fn_try", entity="ahmedadly98", config=wandb.config)    
+  # wandb.init(project="AI_lung_health_q1nofindings_collate_fn_try", config=wandb.config)    
   # wandb.run.name = "AI_lung_health_1"  
                 
   for epoch in range(1, num_epochs):

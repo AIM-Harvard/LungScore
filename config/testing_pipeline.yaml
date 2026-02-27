@@ -2,7 +2,7 @@ io:
   # folder should contain numpy array of extracted lungs
   path_to_data_folder_testing: '/mnt/data/test/'
 
-  csv_path_to_save_lung_health_scores: '/mnt/data/CSVs/test_try'   
+  csv_path_to_save_lung_health_scores: '/mnt/data/CSVs/test_scores.csv'   
 
   # subdir under which the network weights should be saved
   model_weight_url_to_download:  "https://zenodo.org/records/15829020/files/Modelweights_AILH" 

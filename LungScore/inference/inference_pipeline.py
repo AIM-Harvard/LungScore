@@ -42,7 +42,7 @@ with open(conf_file_path) as f:
   yaml_conf = yaml.load(f, Loader = yaml.FullLoader)
 
 """
-You can only change testing "path_to_data_folder_testing" and "csv_path_to_save_lung_health_scores".
+To use LungScore model weights and hyperparameters, you can only change testing "path_to_data_folder_testing" and "csv_path_to_save_lung_health_scores".
 Everything else should be the same.
 """
 

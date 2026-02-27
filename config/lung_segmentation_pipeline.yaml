@@ -1,6 +1,6 @@
 # input NRRD folder and lung segmentation output folder
 io:
-  NRRD_folder_path: '/mnt/data/test/'
+  NRRD_folder_path: '/mnt/data/nrrds/'
   lung_segmentation_folder_path: '/mnt/data/lung_seg_out/'
 
 preprocessing:
