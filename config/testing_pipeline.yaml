@@ -5,7 +5,7 @@ io:
   csv_path_to_save_lung_health_scores: '/mnt/data/CSVs/test_scores.csv'   
 
   # subdir under which the network weights should be saved
-  model_weight_url_to_download:  "https://zenodo.org/records/15829020/files/Modelweights_AILH" 
+  model_weight_url_to_download:  "modelweights" 
 
   device_cuda: 'cuda:0'
 

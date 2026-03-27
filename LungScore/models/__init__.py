@@ -23,16 +23,16 @@ def lungscore_load(model = Lungscore, eval_mode=True, device = "cuda" if torch.c
     model = Lungscore().to(device)
 
     # download model weights
-    weights_url  = "https://zenodo.org/records/15829020/files/Modelweights_AILH" 
+    weights_url  = "modelweights" 
     current_path = Path(os.getcwd())
 
-    if not (current_path / "Modelweights_AILH").exists():
-        wget.download(weights_url, out=os.path.join(os.getcwd(), 'Modelweights_AILH'))
+    if not (current_path / "modelweights").exists():
+        wget.download(weights_url, out=os.path.join(os.getcwd(), 'modelweights'))
 
     # Load the pretrained weights
     model = nn.DataParallel(model)
 
-    model.load_state_dict(torch.load(current_path / "Modelweights_AILH", map_location=device))
+    model.load_state_dict(torch.load(current_path / "modelweights", map_location=device))
     
     # model in eval mode
     if eval_mode:
