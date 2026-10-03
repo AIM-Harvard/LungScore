@@ -119,7 +119,7 @@ plot_cox_meta_analysis_twosplit <- function(adjustments, subset_labels, df_list,
   pdf_file <- paste0(pdf_file)
   pdf(pdf_file, width = 14, height = 5)
   xlab_text <- "     <- Decrease risk | Increase risk ->"
-  forest(pooled_meta_analysis, xlab = xlab_text, leftcols = c("studlab", "n.e"), leftlabs=c("Continously decreasing lung health adjusted", "No."), xlim = xlim, weight.study = "same", col.square = "grey", col.inside="black")
+  forest(pooled_meta_analysis, xlab = xlab_text, leftcols = c("studlab", "n.e"), leftlabs=c("Continously decreasing Lung Score adjusted", "No."), xlim = xlim, weight.study = "same", col.square = "grey", col.inside="black")
   grid.text("Cox Prop Hazards", 0.15, .87, gp=gpar(cex=2))
   dev.off()
 }

@@ -11,7 +11,7 @@ io:
   model_weights_foldertosave_name: '/mnt/lungscore/model_weights/'
 
 
- # hyperparameters used during the training of AI Lung Health
+ # hyperparameters used during the training of AI Lung Score
 training:
     
   conv_dropout: 0.2

@@ -32,11 +32,9 @@ def lung_extraction(lungmask, nrrd):
             lungmask: segmented lung from lungmask model
             nrrd: nrrd scan image (SimpleITK Image object) 
         Returns:
-            extracted_lung (numpy array): extracted lung based on the lung health development pipeline
+            extracted_lung (numpy array): extracted lung based on the Lung Score development pipeline
         """       
         
-        begin_depth = []
-        end_depth = []
 
         try: 
             # get image array from nrrd and normalize it
@@ -45,6 +43,13 @@ def lung_extraction(lungmask, nrrd):
 
             # threshold lungmask to binary
             ret, thres = cv2.threshold(lungmask, 0, 1, cv2.THRESH_BINARY) 
+
+            # Select first/last occupied slices; Python's stop index is exclusive.
+            lung_slices = np.flatnonzero(np.any(thres > 0, axis=(1, 2)))
+            if lung_slices.size == 0:
+                raise ValueError("Empty lung segmentation")
+            begin_depth = int(lung_slices[0])
+            end_depth = int(lung_slices[-1]) + 1
 
             # iterate through slices to find the largest lung area
             max_area_slice = 0 
@@ -67,12 +72,8 @@ def lung_extraction(lungmask, nrrd):
                     
                 x,y,w,h = mx
     
-                if (len(areas) == 0) and (max_area_slice == 0): 
-                    begin_depth.append(slc_no)
-                
-                elif (len(areas) == 0) and (max_area_slice > 0):
-                    end_depth.append(slc_no)
-                
+                if len(areas) == 0:
+                    continue
                 elif len(areas) == 1:
                     x, y, w, h = x, y, w, h
                     
@@ -122,22 +123,17 @@ def lung_extraction(lungmask, nrrd):
                     
                         largest_slice = slc_no
             
-            if len(begin_depth) == 0:
-                print('No Lungs to segment: ', scan)
-                raise Exception('Exception')
-                return
-            
-            if len(end_depth) == 0:
-                end_depth.append(scan.shape[0])
+            if max_area_slice == 0:
+                raise ValueError("No multi-contour slice found; review the segmentation")
 
             # extract the whole lung - cropped to its border
-            cropped_lung = thres[begin_depth[-1]+1:end_depth[0]-1, yy:yy+hh, xx:xx+ww]
-            cropped_volume = scan[begin_depth[-1]+1:end_depth[0]-1, yy:yy+hh, xx:xx+ww]  
+            cropped_lung = thres[begin_depth:end_depth, yy:yy+hh, xx:xx+ww]
+            cropped_volume = scan[begin_depth:end_depth, yy:yy+hh, xx:xx+ww]
            
             only_lung_volume = cropped_volume * cropped_lung
             d, h, w = only_lung_volume.shape[0], only_lung_volume.shape[1], only_lung_volume.shape[2] 
 
-            # pad / crop to lung health development selection size (400, 280, 90) - W, H, D
+            # pad / crop to Lung Score development selection size (400, 280, 90) - W, H, D
             padding = monai.transforms.SpatialPad(spatial_size=(480, 512), mode = 'constant', value = 0)
             only_lung_volume_padded = padding(torch.from_numpy(only_lung_volume))  
   
@@ -153,5 +149,5 @@ def lung_extraction(lungmask, nrrd):
             return extracted_lung 
 
         except Exception as e:
-            print('no file/folder or error in loading: ', nrrd) 
+            raise RuntimeError(f"Lung extraction failed: {e}") from e
 

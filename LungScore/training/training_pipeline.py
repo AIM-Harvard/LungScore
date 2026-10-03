@@ -5,29 +5,15 @@ AI-derived Lung Score training pipeline
 import os
 import yaml
 import argparse
-import matplotlib  
 
-from torch.utils.tensorboard import SummaryWriter
 import torch
-import torch.nn.functional as F
-from torch import optim
 from torch.utils.data import DataLoader
 import torch.nn as nn
-from sklearn import metrics
-import numpy as np
 import time
-from torchmetrics import Accuracy
-import wandb 
 from sklearn.metrics import roc_auc_score
-import matplotlib.pyplot as plt
-from sklearn.metrics import RocCurveDisplay
-from sklearn import metrics 
-import pandas as pd
-import monai
-import torchvision.models as models
 
 from LungScore.datasets.dataset import Train_set, Tune_set
-from LungScore.models.model import Lunghealth
+from LungScore.models.model import Lungscore
 from LungScore.training.training import train, tune
 
 ## ----------------------------------------
@@ -85,7 +71,11 @@ Aim = yaml_conf["wandb"]["Aim"]
 
 ##########################################
 # disturbed training 
-model = nn.DataParallel(Lunghealth(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max))
+# Keep the released model's frozen settings; do not silently ignore YAML changes.
+if (conv_dropout, FC_dropout, normalization_value_min, normalization_value_max) != (0.2, 0.4, -1024, 1566):
+    raise ValueError("Configuration differs from the frozen Lungscore model settings")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+model = nn.DataParallel(Lungscore()).to(device)
 
 optimizer = torch.optim.Adam(model.parameters(), lr=training_learningrate)             
  
@@ -104,6 +94,7 @@ tune_data_loader = DataLoader(val_dataset, batch_size=tuning_batch_size, shuffle
 def main():
   
   
+  os.makedirs(model_weights_foldertosave_name, exist_ok=True)
   Best_Tune_AUC = 0
   # wandb.config = dict( 
   #   epochs=num_epochs,
@@ -134,12 +125,12 @@ def main():
       tune_AUC =  roc_auc_score(tune_labels, tune_logits)     
 
       # save the model weights at each epoch
-      torch.save(model.state_dict(), model_weights_foldertosave_name+'weights_atepoch_'+str(epoch))
+      torch.save(model.state_dict(), os.path.join(model_weights_foldertosave_name, 'weights_atepoch_'+str(epoch)))
     
       # save the best model based on AUC on tuning set   
       if tune_AUC > Best_Tune_AUC:  
         Best_Tune_AUC = tune_AUC
-        torch.save(model.state_dict(), model_weights_foldertosave_name+'best_model_AUC_onTune_atepoch'+str(epoch))
+        torch.save(model.state_dict(), os.path.join(model_weights_foldertosave_name, 'best_model_AUC_onTune_atepoch'+str(epoch)))
 
       #wandb.log({"Epoch": epoch, "Tune_AUC": tune_AUC})  
       #wandb.log({"Epoch": epoch, "Tune_AUC": train_AUC})  

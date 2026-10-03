@@ -37,7 +37,7 @@ library(ggsignif)
 ############################
 # Boxplot function
 #############################
-plot_boxplot <- function(data, categorical_var, continuous_var, output_file, labels_colors, x_label = "PACK-YEARS", y_label = "Lung health", width = 5, height = 5, ref.group="0", y_lim = c(0, 1)) {
+plot_boxplot <- function(data, categorical_var, continuous_var, output_file, labels_colors, x_label = "PACK-YEARS", y_label = "Lung Score", width = 5, height = 5, ref.group="0", y_lim = c(0, 1)) {
   # Helper function for adding n = labels
   give.n.eq <- function(yx){
     inner <- function(x){
@@ -107,7 +107,7 @@ result <- plot_boxplot(df_NLST,
                                "mnt/outcome_analysis/Figures_LH/Boxplot_packyears_NLST.pdf", 
                                labels_colors = labels_colors,
                                x_label = "Pack-years groups\n (NLST)",
-                               y_label = "Lung health score", 
+                               y_label = "Lung Score",
                                height = 3, 
                                width = 3.2,
                                ref.group="<39") 

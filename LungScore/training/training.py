@@ -1,11 +1,9 @@
 import torch
 import torch.nn as nn
-from torchmetrics import Accuracy
-import time 
 import numpy as np
 import torch.nn.functional as F
 
-device = torch.device("cuda:0")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # training function
 def train(model, data_loader, optimizer):
@@ -21,7 +19,7 @@ def train(model, data_loader, optimizer):
     for batch in data_loader:
 
         imgs, labels = batch 
-        labels = labels.cuda()
+        labels = labels.to(device)
  
         optimizer.zero_grad() 
 
