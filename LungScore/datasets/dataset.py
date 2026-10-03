@@ -10,13 +10,21 @@ class Test_set(Dataset):
 
     def __init__(self, image_path):
         
-        self.image_path = image_path   
+        self.image_path = os.path.abspath(image_path)
+        self.files = [name for name in os.listdir(self.image_path)
+                      if name.lower().endswith('.npy')
+                      and os.path.isfile(os.path.join(self.image_path, name))]
+        if not self.files:
+            raise ValueError(f"No .npy scans found in {self.image_path}")
+
+    def __len__(self):
+        return len(self.files)
 
     def __getitem__(self, i):
 
-        scan = os.listdir(self.image_path)[i]
+        scan = self.files[i]
  
-        img = np.load(os.listdir(os.chdir(self.image_path))[i])
+        img = np.load(os.path.join(self.image_path, scan), allow_pickle=False)
        
         img = torch.tensor(img, dtype = torch.float32)
                  

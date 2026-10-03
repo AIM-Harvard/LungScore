@@ -130,7 +130,7 @@ plot_survival_unzoomed <- function(time_col, event_col, fit, data, cohort_name, 
     fontsize = 3.5,
     conf.int = FALSE,
     legend = c(0.9, 0.2),
-    legend.title = "Lung Health",
+    legend.title = "Lung Score",
     
     legend.labs = c("very high", "high", "moderate", "low", "very low"),
     palette = c("#1b7837","#5aae61", "#a6dba0", "#c2a5cf", "#762a83"),

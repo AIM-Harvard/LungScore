@@ -21,7 +21,7 @@ from lungmask import mask
 # preprocess nrrd
 def preprocess_nrrd(nrrd_path):
     """
-    Read and Resample NRRD based on AI Lung Health selection
+    Read and Resample NRRD based on AI Lung Score selection
     Args:
         nrrd_path (str): path to NRRD Scan
     Returns:

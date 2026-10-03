@@ -33,6 +33,13 @@ def predict_riskgroup(ai_lung_score):
     Returns:
         risk group category (str): representing risk group based on lung score
     """
+    values = np.asarray(ai_lung_score, dtype=float)
+    if values.size != 1:
+        raise ValueError("Expected exactly one lung score")
+    ai_lung_score = float(values.reshape(-1)[0])
+    if not np.isfinite(ai_lung_score) or not 0.0 <= ai_lung_score <= 1.0:
+        raise ValueError("Lung score must be finite and between 0 and 1")
+
     # lung score cut-offs calculated on tuning set based on lung damage score (1- lung score)
     ai_lung_score  =  1 - ai_lung_score
     

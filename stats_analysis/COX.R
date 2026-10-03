@@ -132,7 +132,7 @@ plot_cox_meta_analysis_fivesplit_reference <- function(time_col, event_col, adju
   forest(
     pooled_meta_analysis, 
     leftcols = c("studlab", "n.e"),
-    leftlabs = c("Lung Health", "No."),
+    leftlabs = c("Lung Score", "No."),
     xlab = xlab_text, 
     xlim = xlim, 
     atransf=exp, weight.study = "same", col.square = "grey", col.inside="black"

@@ -6,16 +6,10 @@ import argparse
 
 import os
 import SimpleITK as sitk
-import shutil
 from lungmask import mask
 import numpy as np
-import matplotlib.pyplot as plt
 import SimpleITK as sitk
-import nibabel as nib
-import pandas as pd
-import pickle
 import cv2  
-import seaborn as sns
 import torch
 import monai
 
@@ -80,10 +74,10 @@ def seg_lung(NRRD_folder_path):
     Returns:
         None: saves the segmented lung volumes in the specified folder
     """      
+    os.makedirs(lung_segmentation_folder_path, exist_ok=True)
+    failed_scans = []
     for scan_id in os.listdir(NRRD_folder_path):
         
-        begin_depth = []
-        end_depth = []
         try:
             # read NRRD
             scan_image = sitk.ReadImage(os.path.join(NRRD_folder_path, scan_id))         
@@ -97,6 +91,13 @@ def seg_lung(NRRD_folder_path):
             lung_mask = mask.apply(scan_image)
 
             ret, thres = cv2.threshold(lung_mask, 0, 1, cv2.THRESH_BINARY) 
+
+            # Select first/last occupied slices; Python's stop index is exclusive.
+            lung_slices = np.flatnonzero(np.any(thres > 0, axis=(1, 2)))
+            if lung_slices.size == 0:
+                raise ValueError("Empty lung segmentation")
+            begin_depth = int(lung_slices[0])
+            end_depth = int(lung_slices[-1]) + 1
 
             # choose largest lung slice 
             max_area_slice = 0 
@@ -119,12 +120,8 @@ def seg_lung(NRRD_folder_path):
                     
                 x,y,w,h = mx
     
-                if (len(areas) == 0) and (max_area_slice == 0): 
-                    begin_depth.append(slc_no)
-                
-                elif (len(areas) == 0) and (max_area_slice > 0):
-                    end_depth.append(slc_no)
-                
+                if len(areas) == 0:
+                    continue
                 elif len(areas) == 1:
                     x, y, w, h = x, y, w, h
                     
@@ -174,19 +171,12 @@ def seg_lung(NRRD_folder_path):
                     
                         largest_slice = slc_no
                         
-            # specify lung starting slice
-            if len(begin_depth) == 0:
-                print('No Lungs to segment: ', scan_id)
-                raise Exception('Exception')
-                return
-            
-            # specify lung ending slice
-            if len(end_depth) == 0:
-                end_depth.append(scan.shape[0])
+            if max_area_slice == 0:
+                raise ValueError("No multi-contour slice found; review the segmentation")
 
             # extract only the lung
-            cropped_lung = thres[begin_depth[-1]+1:end_depth[0]-1, yy:yy+hh, xx:xx+ww]
-            cropped_volume = scan[begin_depth[-1]+1:end_depth[0]-1, yy:yy+hh, xx:xx+ww]  
+            cropped_lung = thres[begin_depth:end_depth, yy:yy+hh, xx:xx+ww]
+            cropped_volume = scan[begin_depth:end_depth, yy:yy+hh, xx:xx+ww]
            
             only_lung_volume = cropped_volume * cropped_lung
             d, h, w = only_lung_volume.shape[0], only_lung_volume.shape[1], only_lung_volume.shape[2] 
@@ -206,10 +196,14 @@ def seg_lung(NRRD_folder_path):
             
             # save segmented lung
             scan_id_name = os.path.splitext(scan_id)[0]
-            np.save(lung_segmentation_folder_path+scan_id_name, cropped)   
+            np.save(os.path.join(lung_segmentation_folder_path, scan_id_name), cropped)
 
         except Exception as e:
-            print('no file/folder or error in loading: ', scan_id) 
+            print(f"Lung extraction failed for {scan_id}: {e}")
+            failed_scans.append(scan_id)
+
+    if failed_scans:
+        raise RuntimeError(f"Extraction failed for {len(failed_scans)} scans: {', '.join(failed_scans)}")
 
 
 if __name__ == "__main__":

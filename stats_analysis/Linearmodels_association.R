@@ -103,7 +103,7 @@ plot_linear_meta_analysis_standardized_scale_metagen_subgroups <- function(adjus
   
   # 5. Plot the Forest Plot
   pdf(pdf_file, width = 12, height = 12)
-  xlab_text <- "<- Worse Lung Health | Better Lung Health ->"
+  xlab_text <- "<- Worse Lung Score | Better Lung Score ->"
   forest(pooled_meta_analysis, xlim = xlim, xlab = xlab_text, leftcols = c("studlab", "n.e"), leftlabs = c("Variables\n and Subgroups", "Count"), rightcols = c("effect", "ci"), print.byvar = FALSE, subgroup = TRUE, digits = 2,   weight.study = "same",
          col.square = "grey",
          col.inside = "black")

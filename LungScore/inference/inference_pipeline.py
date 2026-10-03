@@ -6,8 +6,6 @@ import wget
 import os
 import yaml
 import argparse
-import matplotlib
-import numpy as np
 import pandas as pd
 import torch  
 from torch.utils.data import DataLoader
@@ -15,7 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from LungScore.datasets.dataset import Test_set
-from LungScore.models.model import CNNModel
+from LungScore.models.model import Lungscore
 
 ## ----------------------------------------
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -73,8 +71,11 @@ FC_dropout = yaml_conf["training"]["FC_dropout"]
 dataset = Test_set(testing_data_folder_path)
 data_loader = DataLoader(dataset, batch_size=testing_batch_size, shuffle = False)
 
-model = CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max)
-device = torch.device(device_cuda)
+# Keep the released model's frozen settings; do not silently ignore YAML changes.
+if (conv_dropout, FC_dropout, normalization_value_min, normalization_value_max) != (0.2, 0.4, -1024, 1566):
+    raise ValueError("Configuration differs from the frozen Lungscore model settings")
+model = Lungscore()
+device = torch.device("cpu" if str(device_cuda).startswith("cuda") and not torch.cuda.is_available() else device_cuda)
 
 ###################################
 
@@ -98,14 +99,14 @@ def download_model_weights(model):
 
 #######################
 
-# predict lung health score
+# predict Lung Score
 def test(data_loader):
     
     scans = []
     scores = []
     
     # download and load model weights 
-    model = download_model_weights(model = CNNModel(conv_dropout, FC_dropout, normalization_value_min, normalization_value_max))
+    model = download_model_weights(model=Lungscore())
     
     # model in evaluation mode
     model.eval()
@@ -114,17 +115,18 @@ def test(data_loader):
             imgs, scan_id_name = batch
             pred = model.to(device)(imgs.to(device).unsqueeze(1))  
             
-            # get a score between 0 to 1 , representing lung health
-            pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 0] # 0 for the updated version of lung health , higher score --> better outcome  
+            # get a score between 0 to 1 , representing Lung Score
+            pred = F.softmax(pred.cpu().detach(), dim=1).numpy()[:, 0] # 0 for the updated version of Lung Score , higher score --> better outcome
             
-            scans.append(scan_id_name)
-            scores.append(pred)
+            scans.extend(scan_id_name)
+            scores.extend(pred.tolist())
 
-    ai_lung_health = pd.DataFrame(
+    ai_lung_score = pd.DataFrame(
     {'Scan': list(scans),
-    'AI_Lung_Health_Score': list(scores)
+    'AI_Lung_Score': list(scores)
     })
-    ai_lung_health.to_csv(csv_path_to_save_lung_health_scores)
+    Path(csv_path_to_save_lung_health_scores).parent.mkdir(parents=True, exist_ok=True)
+    ai_lung_score.to_csv(csv_path_to_save_lung_health_scores, index=False)
 
 # run inference pipeline
 def main():

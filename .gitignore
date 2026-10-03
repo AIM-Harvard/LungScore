@@ -37,3 +37,6 @@ LungScore/preprocessing/dcm_to_nrrds.py
 config/dcm_to_nrrd_pipeline.yaml
 LungScore/lung_cancer_data/
 
+# Local train/tune participant identifiers (not for GitHub)
+/LungScore/participant_ids/
+
